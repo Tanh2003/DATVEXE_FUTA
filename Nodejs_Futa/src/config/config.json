@@ -1,0 +1,13 @@
+{
+  "development": {
+    "username": "freedb_tanhvip",
+    "password": "Fu%kf44Wps7SQw@",
+    "database": "freedb_DB_Futa",
+    "host": "sql.freedb.tech",
+    "dialect": "mysql",
+    "logging": false,
+    "query":{"raw":true},
+    "timezone":"+07:00"
+  }
+
+}

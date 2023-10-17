@@ -1,13 +1,10 @@
 
 import "./LoginFuta.scss"
 import phone from "../image/phone.svg";
+import {useState} from "react";
 
 
 
-
-const handleClickme=(event)=>{
-    console.log("click  me+>>>",event.target.value);
-}
 
 
 
@@ -15,7 +12,26 @@ const handleClickme=(event)=>{
 
 
 const LoginFuta=()=>{
-    let tennguoidung="tuan anh neee";
+
+
+
+
+  
+    let [name,setName]=useState('tanhne');
+    let [adress,setAddress]=useState('');
+
+
+const handleClickme=(event)=>{
+   setName(adress);
+
+    
+    console.log("click  me+>>>",event.target.value);
+}
+
+const handleInputAdreess=(event)=>{
+    setAddress(event.target.value);
+}
+   
 
     return(
         
@@ -28,7 +44,7 @@ const LoginFuta=()=>{
                     <div className="login-image2"></div>
                 </div>
                 <div className="create-account">
-                    <b>Đăng nhập tài khoản</b>
+                    <b>Đăng nhập tài khoản {name}</b>
                     <div className="login-left">
                         <span><img src={phone} className="px-1"/></span>
                         <a className="login" >Đăng nhập</a>
@@ -39,14 +55,14 @@ const LoginFuta=()=>{
                     <div className="input-group">
                         
                        
-                        <input type="text"  name="username" placeholder="Nhập số điện thoại"/>
+                        <input type="text"  name="username" placeholder="Nhập số điện thoại" value={adress} onChange={(event)=>{handleInputAdreess(event)}}/>
                   
                     </div>
                     <div className="input-group">
                       
                         <input type="password" name="password" placeholder="Nhập mật khẩu"/>
                     </div>
-                    <button type="submit" value={tennguoidung} onClick={(event)=>{handleClickme(event)}}>Đăng nhập</button>
+                    <button type="submit" value={name} onClick={(event)=>{handleClickme(event)}}>Đăng nhập</button>
                 </div>
             </div>
         </div>
