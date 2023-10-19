@@ -1,4 +1,4 @@
-header {
+.daune {
     background-image: url('../image/home_banner.png');
     
     background-size: cover;
@@ -7,10 +7,10 @@ header {
     height: 200px;
     padding: 20px;
     position: relative; /* Thêm position: relative cho header */
-    z-index: 1; /* Đặt z-index để đè lên .login-box */
+   
 }
 
-.header-content {
+.daune {
    
     margin: 0 auto;
 }
@@ -22,47 +22,28 @@ header {
     
     /* Định vị ở giữa trang web và đỉnh */
     position: absolute;
-    top: 60%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
  
 
 }
-/* Định dạng cơ bản cho phần tử a */
-a {
- 
-    align-items: center;
-    
-    padding: 10px;
-    border-radius: 20px;
-    background-color: white;
-    text-decoration: none; /* Loại bỏ gạch chân mặc định cho liên kết */
-    color: black;
-    width: 50px; /* Điều chỉnh độ rộng của phần tử a */
-    height: 50px;
+
+.text-loginleft{
     margin-left: 1000px;
-    font-weight: 600;
-    font-size: 15px;
-}
+    width: 160px;
+    height: 30px;
+    background: white;
+    border-radius: 20px;
+   
+    font-size: 13px;
+    padding-left: 10px;
+    padding-top: 5px;
+    font-weight: 500;
 
-/* Định dạng cho hình ảnh bên trong phần tử a */
-a{
-    img {
-        width: 20px;
-        height: 20px;
-        margin-right: 5px; /* Tạo khoảng cách giữa hình ảnh và văn bản */
-      background-image: url('../image/person.svg');
-      border-radius: 100%;
+
     
+    img{
+        padding-bottom: 4px;
     }
-
-}
- 
-/* Định dạng cho hình ảnh với lớp "custom-image" */
-
-
-
-/* Hover state (trạng thái khi rê chuột qua) */
-a:hover {
-    background-color: #f0f0f0; /* Đổi màu nền khi rê chuột qua */
 }

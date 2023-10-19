@@ -1,25 +1,27 @@
 
 import "../HeaderFuta/HeaderFutaMain.scss";
+import person from "../image/person.svg"
 
-
-const Header=()=>{
+const HeaderFutaMain=()=>{
     return(
 
         <div>
-            <header>
-        <div className="header-content">
+        
+        <div className="daune">
             <div className="box-ovan">
                 
             </div>
-            <div>
-                <a>
-             <span><img/></span><span>Đăng nhập/Đăng ký</span> 
+            <div className="text-loginleft" >
+              
+             <img src={person}/> <a>
+             Đăng nhập/Đăng ký
                 </a>
+             
             </div>
            
             
         </div>
-    </header>
+  
 
 
 
@@ -33,4 +35,4 @@ const Header=()=>{
 
 }
 
-export default Header;
+export default HeaderFutaMain;

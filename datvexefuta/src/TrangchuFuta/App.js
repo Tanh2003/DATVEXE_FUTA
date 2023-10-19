@@ -1,18 +1,22 @@
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import IndexAdmin from '../Admin/IndexAdmin';
+import LoginFuta from '../Dangnhap/LoginFuta';
+import AddUser from "../Admin/CRUD_User/AddUser";
 
-import './App.scss';
-import Footer from "../FooterFuta/Footer.js";
-import Header  from '../HeaderFuta/HeaderFutaMain';
-import LoginFuta from '../Login/LoginFuta';
 
-const App=()=> {
+function App() {
   return (
-    <div className="App">
-      <Header/>
-     <LoginFuta/>  
-     <Footer/>
-
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<IndexAdmin/>} />
+       
+        <Route path="/Login" element={<LoginFuta/>} />
+        <Route path="/them" element={<AddUser/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
+ReactDOM.render(<App />, document.getElementById('root'));
 export default App;
