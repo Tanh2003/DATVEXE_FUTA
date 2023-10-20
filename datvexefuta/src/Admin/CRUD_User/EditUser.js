@@ -90,48 +90,7 @@ class AddUser extends Component {
           ...copyState
         })
     }
-    checkValideInput=()=>{
-        let isValid=true;
-
-        const password = this.state.password;
-        const phoneNumber = this.state.phoneNumber;
-  
-        let arrInput=['phoneNumber','password','fullName','address'];
-       
-        for(let i=0;i<arrInput.length;i++){
-          console.log('check inside loop',this.state[arrInput[i]],arrInput[i]);
-          if(!this.state[arrInput[i]])
-          {
-            isValid=false;
-            alert('Vui lòng điền vào : '+arrInput[i]);
-           
-            
-          }
-          
-          else if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password)) {
-            isValid = false;
-            alert("Mật khẩu yêu cầu ít nhất một chữ cái viết thường, ít nhất một chữ cái viết hoa,ít nhất một số,mật khẩu phải có ít nhất 8 ký tự");
-            break;
-      
-            
-          }
-          if (!/^\d{10}$/.test(phoneNumber)) {
-            isValid = false;
-            alert("Số điện thoại phải là số  và phải có 10 số");
-            break;
-            
-          }
-          break;
-         
-      
-        
-        }
     
-        
-        return isValid;
-      }
-
-
       checkValideInputEdit=()=>{
         let isValid=true;
 
@@ -174,72 +133,6 @@ class AddUser extends Component {
       }
     
 
-
-
-
-
-
-
-
-
-
-
-
-    
-    handleAddNewUser=()=>{
-        let isValid= this.checkValideInput();
-        if(isValid==true){
-          this.taomoinguoidung({
-             phoneNumber:this.state.phoneNumber,
-              password:this.state.password,
-              fullName:this.state.fullName,
-              address:this.state.address,
-              gender: this.state.gender,
-              job:this.state.job,
-              dateOfBirth:this.state.dateOfBirth,
-              roleId:this.state.roleId,
-              avatar:this.state.avatar,
-             
-    
-    
-          });
-        }
-      }
-
-     
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-            
-      taomoinguoidung= async(data)=>{
-           
-        try {
-           let response=await createNewUseService(data); 
-           if(response&&response.errcode !==0){
-            toast.error("Tạo Tài khoản thất bại !")
-            alert(response.errMessage)
-           }else{
-            toast.success("Tạo Tài khoản thành công !")
-            
-                   
-           }
-        } catch (e) {
-            console.log(e);
-        }
-    
-    }
-
     
     handleSaveUser=()=>{
         let isValid= this.checkValideInputEdit();
@@ -248,10 +141,6 @@ class AddUser extends Component {
        
           this.props.editUser(this.state);
           toast.success("Sửa thành công !")
-       
-       
-       
-        
 
         }
 
@@ -389,7 +278,7 @@ class AddUser extends Component {
                                       <option value="2">Khác</option>
                                 </select>
                                 <div className='row-12'>
-                            <button  className="btn btn-primary mt-3 px-3"  onClick={()=>{this.handleAddNewUser()}}>
+                            <button  className="btn btn-warning mt-3 px-3"   onClick={()=>{this.handleSaveUser()}}>
 Thêm mới
                                 </button>
 
