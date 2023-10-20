@@ -148,6 +148,17 @@ let CreateNewUser=(data)=>{
                     image:data.avatar
                     
                 });
+                if(data && data.image){
+                    data.image=Buffer.from(data.image,'base64').toString('binary');
+
+                }
+                if(!data){
+                    data={};
+                }
+                resolve({
+                    errcode:0,
+                    data:data
+                })
     
                 resolve({
                     errcode:0,

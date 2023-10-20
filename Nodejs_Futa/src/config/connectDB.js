@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 
 
 // Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('freedb_DB_Futa', 'freedb_tanhvip','Fu%kf44Wps7SQw@', {
+const sequelize = new Sequelize('freedb_DB_Futa', 'freedb_tanhvip','X9T97ZTexSU5mY$', {
   host: 'sql.freedb.tech',
   dialect:  'mysql', 
   logging: false
