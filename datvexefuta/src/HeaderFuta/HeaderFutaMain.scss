@@ -47,3 +47,47 @@
         padding-bottom: 4px;
     }
 }
+
+
+.main-menu {
+    /* top: 10px; */
+    position: relative;
+    text-align: center; 
+    margin-top: 20px;
+    transition: transform 0.3s;
+
+}
+.main-menu:hover{
+    transform: scale(1.3); /* Phóng to lên 1.1 lần kích thước ban đầu */
+    }
+.main-menu > ul > li {
+    display: inline-block;
+    padding: 20px; 
+    font-size: 18px;
+    font-weight: 550;
+    top: 50px;
+    color: azure;
+    
+}
+
+.main-menu > ul > li:hover {
+    text-decoration: none;
+    }
+.main-menu > ul > li > a:hover {
+    color: #fffb00;
+    
+}
+.main-menu > ul {
+    list-style-type: none; /* Loại bỏ dấu chấm trước mục trong danh sách */
+    padding: 0;
+}
+
+.main-menu > ul > li {
+    display: inline; /* Hiển thị mục menu cùng hàng ngang */
+    margin-right: 20px; /* Khoảng cách giữa các mục menu */
+}
+
+.main-menu > ul > li > a {
+    text-decoration: none; /* Loại bỏ gạch chân của liên kết */
+    color: #ffffff; /* Màu chữ của liên kết - ví dụ: màu cam đậm */
+}
