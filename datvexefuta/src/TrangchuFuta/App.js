@@ -6,17 +6,19 @@ import IndexAdmin from '../Admin/IndexAdmin';
 import LoginFuta from '../Dangnhap/LoginFuta';
 import AddUser from "../Admin/CRUD_User/AddUser";
 import EditUser from "../Admin/CRUD_User/EditUser";
-
+import TrangChu from '../User/TrangChu';
+import LienHe from '../User/LienHe';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<IndexAdmin/>} />
-       
         <Route path="/Login" element={<LoginFuta/>} />
         <Route path="/them" element={<AddUser/>} />
         <Route path="/sua" element={<EditUser/>} />
+        <Route path="/trangchu" element={<TrangChu/>} />
+        <Route path="/lienhe" element={<LienHe/>} />
       </Routes>
       <ToastContainer
                         position="bottom-right"
