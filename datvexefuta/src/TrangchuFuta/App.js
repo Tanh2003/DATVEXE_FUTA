@@ -8,6 +8,8 @@ import AddUser from "../Admin/CRUD_User/AddUser";
 import EditUser from "../Admin/CRUD_User/EditUser";
 import TrangChu from '../User/TrangChu';
 import LienHe from '../User/LienHe';
+import DatXe from '../User/DatXe';
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="/sua" element={<EditUser/>} />
         <Route path="/trangchu" element={<TrangChu/>} />
         <Route path="/lienhe" element={<LienHe/>} />
+        <Route path="/datxe" element={<DatXe/>} />
       </Routes>
       <ToastContainer
                         position="bottom-right"
