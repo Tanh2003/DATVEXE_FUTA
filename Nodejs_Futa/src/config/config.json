@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "freedb_tanhvip",
-    "password": "X9T97ZTexSU5mY$",
+    "username": "root",
+    "password": "",
     "database": "freedb_DB_Futa",
-    "host": "sql.freedb.tech",
+    "host": "localhost",
     "dialect": "mysql",
     "logging": false,
     "query":{"raw":true},
