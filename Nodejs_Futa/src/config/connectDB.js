@@ -3,17 +3,23 @@ const { Sequelize } = require('sequelize');
 
 
 // Option 3: Passing parameters separately (other dialects)
+<<<<<<< main
 <<<<<<< HEAD
+=======
+>>>>>>> xong datxe
 const sequelize = new Sequelize('futa', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
     logging: false
+<<<<<<< main
 =======
 const sequelize = new Sequelize('freedb_DB_Futa', 'root','', {
   host: 'localhost',
   dialect:  'mysql', 
   logging: false
 >>>>>>> e1b8d3530fee7fff3c03299fc52349ddd317f206
+=======
+>>>>>>> xong datxe
 });
 
 let connectDB = async() => {
