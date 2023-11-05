@@ -11,6 +11,8 @@ import EditUser from "../Admin/CRUD_User/EditUser";
 import TrangChu from '../User/TrangChu';
 import LienHe from '../User/LienHe';
 import DatXe from '../User/DatXe';
+import XeManager from '../Admin/CRUD_xe/XeManager';
+
 
 
 
@@ -31,6 +33,9 @@ function App() {
         /> <
         Route path = "/sua"
         element = { < EditUser / > }
+        /> <
+        Route path = "/xe"
+        element = { < XeManager / > }
         />
 
 
