@@ -1,5 +1,8 @@
 {
+<<<<<<< main
 <<<<<<< HEAD
+=======
+>>>>>>> xong datxe
     "development": {
         "username": "root",
         "password": "",
@@ -10,6 +13,7 @@
         "query": { "raw": true },
         "timezone": "+07:00"
     }
+<<<<<<< main
 =======
   "development": {
     "username": "root",
@@ -22,5 +26,7 @@
     "timezone":"+07:00"
   }
 >>>>>>> e1b8d3530fee7fff3c03299fc52349ddd317f206
+=======
+>>>>>>> xong datxe
 
 }
