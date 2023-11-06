@@ -12,9 +12,7 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
            
-            matuyen: {
-                type: Sequelize.INTEGER
-            },
+           
             tenchuyen: {
                 type: Sequelize.STRING
             },

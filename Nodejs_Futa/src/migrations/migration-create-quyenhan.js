@@ -11,12 +11,6 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-         
-
-            maquyen: {
-                
-                type: Sequelize.INTEGER
-            },
             tenquyen: {
                 type: Sequelize.STRING
             },

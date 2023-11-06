@@ -11,12 +11,9 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            mave: {
-               
+            
+            makh: {
                 type: Sequelize.INTEGER
-            },
-            sdtkh: {
-                type: Sequelize.STRING
             },
             giave: {
                 type: Sequelize.FLOAT

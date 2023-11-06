@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     khachhang.init({
 
-        sdtkh: DataTypes.STRING,
+        sdt: DataTypes.STRING,
         hoten: DataTypes.STRING,
         diachi: DataTypes.STRING,
         ngaysinh: DataTypes.DATE,

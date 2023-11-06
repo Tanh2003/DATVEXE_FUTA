@@ -15,8 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     nhanvien.init({
 
-        maquyen:DataTypes.INTEGER,
-        manv: DataTypes.INTEGER,
+    
         sdtnv: DataTypes.STRING,
         gioitinh: DataTypes.BOOLEAN,
         ngaysinh: DataTypes.DATE,

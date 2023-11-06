@@ -11,8 +11,7 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-         
-            sdtkh: {
+            sdt: {
             
                 type: Sequelize.STRING
             },

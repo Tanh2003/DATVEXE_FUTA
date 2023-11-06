@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   chuyenxe.init({
   
-    machuyen:DataTypes.STRING,
+  
     tenchuyen:DataTypes.STRING,
     dodai:DataTypes.DECIMAL,
     diemdi:DataTypes.STRING,

@@ -14,12 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   vexe.init({
-    mave:DataTypes.INTEGER,
-    sdtkh:DataTypes.STRING,
+   
+    
     giave:DataTypes.FLOAT,
     soghe:DataTypes.STRING,
-    matuyen:DataTypes.INTEGER,
+    machuyen:DataTypes.INTEGER,
     manv:DataTypes.INTEGER,
+    makh:DataTypes.INTEGER,
     thoigianbatdau:DataTypes.DATE,
     soxe:DataTypes.STRING,
     thoigianmua:DataTypes.DATE,

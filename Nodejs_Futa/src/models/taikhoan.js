@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         sdt: DataTypes.STRING,
         matkhau: DataTypes.STRING,
         maquyen: DataTypes.INTEGER,
+        manv:DataTypes.INTEGER,
+        makh:DataTypes.INTEGER,
 
     }, {
         sequelize,

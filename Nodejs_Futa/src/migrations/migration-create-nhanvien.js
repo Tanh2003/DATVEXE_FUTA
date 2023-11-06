@@ -11,11 +11,6 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-         
-            manv: {
-              
-                type: Sequelize.INTEGER
-            },
             hoten: {
                 type: Sequelize.STRING
             },
@@ -28,9 +23,7 @@ module.exports = {
             gioitinh: {
                 type: Sequelize.STRING
             },
-            maquyen: {
-                type: Sequelize.INTEGER
-            },
+           
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

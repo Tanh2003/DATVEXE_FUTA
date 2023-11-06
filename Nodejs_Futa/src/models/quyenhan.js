@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
     };
     quyenhan.init({
 
-        maquyen: DataTypes.INTEGER,
         tenquyen: DataTypes.STRING,
 
     }, {
