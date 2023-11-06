@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     khachhang.init({
 
-        sdt: DataTypes.STRING,
+        sdtkh: DataTypes.STRING,
         hoten: DataTypes.STRING,
         diachi: DataTypes.STRING,
         ngaysinh: DataTypes.DATE,
@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         sequelize,
         modelName: 'khachhang',
+           // muốn không thêm s sau tên bảng database phải thêm thuộc tính này
+    freezeTableName: true
     });
     return khachhang;
 };

@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class vexe extends Model {
+  class chuyenxe extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,21 +13,19 @@ module.exports = (sequelize, DataTypes) => {
  
     }
   };
-  vexe.init({
-    mave:DataTypes.INTEGER,
-    sdtkh:DataTypes.STRING,
-    giave:DataTypes.FLOAT,
-    soghe:DataTypes.STRING,
-    matuyen:DataTypes.INTEGER,
-    manv:DataTypes.INTEGER,
-    thoigianbatdau:DataTypes.DATE,
-    soxe:DataTypes.STRING,
-    thoigianmua:DataTypes.DATE,
+  chuyenxe.init({
+  
+    machuyen:DataTypes.STRING,
+    tenchuyen:DataTypes.STRING,
+    dodai:DataTypes.DECIMAL,
+    diemdi:DataTypes.STRING,
+    diemden:DataTypes.STRING,
+    gia:DataTypes.FLOAT,
   }, {
     sequelize,
-    modelName: 'vexe',
+    modelName: 'chuyenxe',
        // muốn không thêm s sau tên bảng database phải thêm thuộc tính này
        freezeTableName: true
   });
-  return vexe;
+  return chuyenxe;
 };

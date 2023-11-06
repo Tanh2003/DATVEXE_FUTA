@@ -9,7 +9,7 @@ import db from "../models/index";
 let checkSoXe = (input) => {
     return new Promise(async(resolve, reject) => {
         try {
-            let soxe = await db.xes.findOne({
+            let soxe = await db.xe.findOne({
 
                 where: { soxe: input },
 
@@ -34,7 +34,7 @@ let getAllXe = (xeid) => {
         try {
             let xe = '';
             if (xeid == 'ALL') {
-                xe = db.xes.findAll({
+                xe = db.xe.findAll({
                     // ẩn mật khẩu
                     order: [
                         ["createdAt", "DESC"]
@@ -45,7 +45,7 @@ let getAllXe = (xeid) => {
 
             }
             if (xeid && xeid !== 'ALL') {
-                xe = await db.xes.findOne({
+                xe = await db.xe.findOne({
                     where: { id: xeid }, //  userId laf cais tham so truyen vao
                     // ẩn mật khẩu
 
@@ -72,7 +72,7 @@ let CreateXe = (data) => {
                 })
             } else {
 
-                await db.xes.create({
+                await db.xe.create({
                     soxe: data.soxe,
                     loaixe: data.loaixe,
                     manv: data.manv
@@ -99,7 +99,7 @@ let CreateXe = (data) => {
 }
 let deletexe = (xeId) => {
     return new Promise(async(resolve, reject) => {
-        let xe = await db.xes.findOne({
+        let xe = await db.xe.findOne({
             where: { id: xeId }
         })
         if (!xe) {
@@ -108,7 +108,7 @@ let deletexe = (xeId) => {
                 errMessage: "xe isn't exist !"
             })
         }
-        await db.xes.destroy({
+        await db.xe.destroy({
             where: { id: xeId }
         });
         resolve({
@@ -128,7 +128,7 @@ let updateXeData = (data) => {
                     errMessage: "Missing required parameter"
                 })
             }
-            let xe = await db.xes.findOne({
+            let xe = await db.xe.findOne({
                 where: { id: data.id },
                 raw: false
             })

@@ -15,18 +15,20 @@ module.exports = (sequelize, DataTypes) => {
     };
     nhanvien.init({
 
-        macv: DataTypes.INTEGER,
+        maquyen:DataTypes.INTEGER,
         manv: DataTypes.INTEGER,
-        sdt: DataTypes.STRING,
+        sdtnv: DataTypes.STRING,
         gioitinh: DataTypes.BOOLEAN,
         ngaysinh: DataTypes.DATE,
-        tennv: DataTypes.STRING,
+        hoten: DataTypes.STRING,
         diachi: DataTypes.STRING,
 
 
     }, {
         sequelize,
         modelName: 'nhanvien',
+           // muốn không thêm s sau tên bảng database phải thêm thuộc tính này
+    freezeTableName: true
     });
     return nhanvien;
 };

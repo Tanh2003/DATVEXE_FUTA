@@ -11,15 +11,15 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-
             mave: {
+               
                 type: Sequelize.INTEGER
             },
-            sdt: {
+            sdtkh: {
                 type: Sequelize.STRING
             },
             giave: {
-                type: Sequelize.INTEGER
+                type: Sequelize.FLOAT
             },
             soghe: {
                 type: Sequelize.STRING
@@ -27,7 +27,7 @@ module.exports = {
             manv: {
                 type: Sequelize.INTEGER
             },
-            matuyen: {
+            machuyen: {
                 type: Sequelize.INTEGER
             },
             thoigianbatdau: {

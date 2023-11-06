@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         manv: DataTypes.INTEGER,
     }, {
         sequelize,
-        modelName: 'xes',
+        modelName: 'xe',
+           // muốn không thêm s sau tên bảng database phải thêm thuộc tính này
+    freezeTableName: true
     });
     return xe;
+    
 };
