@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     manv:DataTypes.INTEGER,
     makh:DataTypes.INTEGER,
     thoigianbatdau:DataTypes.DATE,
-    soxe:DataTypes.STRING,
     thoigianmua:DataTypes.DATE,
   }, {
     sequelize,
