@@ -33,8 +33,8 @@ module.exports = {
             thoigianmua: {
                 type: Sequelize.DATE
             },
-            soxe: {
-                type: Sequelize.STRING
+            maxe: {
+                type: Sequelize.INTEGER
             },
             createdAt: {
                 allowNull: false,
