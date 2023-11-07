@@ -8,41 +8,6 @@
     font-size: 28px;
     font-weight: 800;
 }
-.headadmin {
-    background-color: #007bff; /* Màu nền */
-    color: white; /* Màu chữ */
-    padding: 10px; /* Khoảng cách giữa nội dung và biên của header */
-    display: flex;
-    justify-content: space-between; /* Để căn chỉnh các phần tử bên trong header */
-    align-items: center; /* Để căn chỉnh các phần tử theo chiều dọc */
-  }
-  
-  .page_admin h1 {
-    font-size: 24px;
-    margin: 0;
-  }
-  
-  .username h3 {
-    font-size: 18px;
-    margin: 0;
-  }
-  
-  .username {
-    margin-right: 20px; /* Khoảng cách giữa tên người dùng và biểu tượng cài đặt */
-  }
-  
-  i.fas.fa-cogs {
-    font-size: 24px;
-    margin-right: 10px; /* Khoảng cách giữa biểu tượng cài đặt và văn bản */
-  }
-  
-  /* Để thay đổi màu biểu tượng cài đặt khi rê chuột vào nó */
-  i.fas.fa-cogs:hover {
-    color: #ffc107;
-  }
-  
-
-
 
 .sidebar {
     position: sticky;
@@ -573,23 +538,3 @@ tfoot {
     padding: 8px;
     color: #fff;
 }
-
-/* styles.css */
-.custom-header {
-    background-color: #007bff; /* Blue background color */
-    color: #fff; /* White text color */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px; /* Adjust padding as needed */
-    border-radius: 5px;
-  }
-  
-  .custom-header .close-button {
-    font-size: 20px;
-    cursor: pointer;
-    color: #fff; /* White close button color */
-    padding-left: 610px;
-  }
-  
-  

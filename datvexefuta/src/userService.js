@@ -47,51 +47,6 @@ const editXe = (inputData) => {
 
 }
 
-// all api taikhoan 
-
-const getAllTaikhoan = (inputId) => {
-    //teamplate String
-    return axios.get(`/api/get-all-taikhoan?id=${inputId}`)
-}
-const createNewTaikhoan = (data) => {
-    return axios.post('/api/create-new-taikhoan', data)
-}
-const deleteTaikhoan = (userId) => {
-    //return axios.delete('/api/delete-user',{id:userId})
-    return axios.delete('/api/delete-taikhoan', {
-        data: {
-            id: userId
-        }
-    })
-}
-const editTaikhoan = (inputData) => {
-    return axios.put('/api/rePassword-taikhoan', inputData)
-
-}
-
-
-const getAllQuyenhan = (inputId) => {
-    //teamplate String
-    return axios.get(`/api/get-all-quyenhan?id=${inputId}`)
-}
-const createNewQuyenhan = (data) => {
-    return axios.post('/api/create-new-quyenhan', data)
-}
-const deleteQuyenhan = (userId) => {
-    //return axios.delete('/api/delete-user',{id:userId})
-    return axios.delete('/api/delete-quyenhan', {
-        data: {
-            id: userId
-        }
-    })
-}
-const editQuyenhan = (inputData) => {
-    return axios.put('/api/edit-quyenhan', inputData)
-
-}
-
-
-
 
 
 
@@ -110,14 +65,6 @@ export {
     getAllXe,
     createNewXe,
     deleteXe,
-    editXe,
-    getAllTaikhoan,
-    createNewTaikhoan,
-    deleteTaikhoan,
-    editTaikhoan,
-    getAllQuyenhan,
-    createNewQuyenhan,
-    deleteQuyenhan,
-    editQuyenhan
+    editXe
 
 }

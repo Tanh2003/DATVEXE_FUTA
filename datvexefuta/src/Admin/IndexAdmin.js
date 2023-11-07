@@ -1,26 +1,27 @@
+import Dashboard from './Components/DashBoard';
+import Navbar from './Components/Navbar';
+import Sidebar from './Components/Sidebar';
 
+const IndexAdmin=()=>{
+ 
+            return(
+              
 
-import "./Admin.css";
-import {DashBoard} from "../Admin/Components/Dashboard"
-import {Header} from "../Admin/Components/Header"
-import XeManager from "../Admin/CRUD_xe/XeManager";
-export const IndexAdmin = () => {
-  return (
-    <>
-    
-      <div className="d_flex">
-        <DashBoard />
-        <div className="main--content">
-          <Header/>
-               <XeManager/>
-          
-          
-        </div>
+              <div>
+              <Navbar/>
+              <div className="container-fluid" id="main">
+               <div className="row row-offcanvas row-offcanvas-left">
+                 <Sidebar/>
+                <Dashboard/>
+              
+           </div>
+          </div>  
+      </div>  
+
+            );
+
         
-      </div>
-     
-    </>
-  );
-};
+
+        }
 
 export default IndexAdmin;

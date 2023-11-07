@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            taikhoan.belongsTo(models.quyenhan, { foreignKey: 'maquyen', targetKey: 'id', as: 'idmaquyenData' })
+
         }
     };
     taikhoan.init({
@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         sdt: DataTypes.STRING,
         matkhau: DataTypes.STRING,
         maquyen: DataTypes.INTEGER,
+        manv:DataTypes.INTEGER,
+        makh:DataTypes.INTEGER,
 
     }, {
         sequelize,
