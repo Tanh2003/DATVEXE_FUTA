@@ -143,8 +143,7 @@ let CreateNewtaikhoan=(data)=>{
                     sdt:data.sdt,
                     matkhau:hashmatkhauFromBcrypt,
                     maquyen:data.maquyen,
-                    manv:data.manv,
-                    makh:data.makh,
+                   
                 });
                 resolve({
                     errcode:0,
@@ -203,8 +202,8 @@ let updatetaikhoanData=(data)=>{
               })
               let hashmatkhauFromBcrypt=await hashtaikhoanmatkhau(data.matkhau);
               if(taikhoan){
-             
-                taikhoan.matkhau=hashmatkhauFromBcrypt,
+                 taikhoan.sdt=data.sdt;
+                taikhoan.matkhau=hashmatkhauFromBcrypt;
                 await taikhoan.save();
                 // await db.taikhoan.save({
                 //     fistName:data.firstName,

@@ -1,85 +1,93 @@
-/* styles.css */
+/* styles.scss */
 
-/* Phong cách cho các ghế */
+// Phong cách cho các ghế
 .seat {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 5px;
-  }
-  
-  /* Phong cách cho ghế đã chọn */
-  .seat.occupied {
-    background-color: #007bff; /* Đổi màu nền thành đỏ */
-    color: #fff; /* Màu chữ trắng */
-  }
-  
-  /* Phong cách cho ghế chưa chọn */
-  .seat.available {
-    background-color: #00ff00; /* Đổi màu nền thành xanh lá cây */
-    color: #000; /* Màu chữ đen */
-  }
-  
-  /* Phong cách cho nút đặt vé (chưa xử lý) */
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin: 0 auto;
-  }
-  .custom-btn{
-    margin-top: 15px;
-  }
-  /* Hiển thị nút đặt vé khi ghế đã được chọn */
-  button[disabled] {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  .custom-box{
-    width: 800px;
-    height: auto;
-    padding-bottom: 50px;
-    text-align: center;
-    margin-left: 1px;
-    background: rgb(201, 201, 201, 0.1);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    
-    margin-left: 20px;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 20px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 5px;
 }
-.custom-dv{
-    width: 100%;
-    display: flex; /* Sử dụng hiển thị flexbox để xếp các phần tử cùng hàng */
-  justify-content: space-between; /* Căn giữa các phần tử theo chiều ngang */
+
+// Phong cách cho ghế đã chọn
+.seat.occupied {
+  background-color: #007bff; // Đổi màu nền thành đỏ
+  color: #fff; // Màu chữ trắng
+}
+
+// Phong cách cho ghế chưa chọn
+.seat.available {
+  background-color: #00ff00; // Đổi màu nền thành xanh lá cây
+  color: #000; // Màu chữ đen
+}
+
+
+.btn-datxe{
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+
+}
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+.custom-btn {
+  margin-top: 15px;
+}
+
+
+.custom-box {
+  width: 800px;
+  height: auto;
+  padding-bottom: 50px;
+  text-align: center;
+  margin-left: 1px;
+  background: rgba(201, 201, 201, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  margin-left: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.custom-dv {
+  width: 100%;
+  display: flex; // Sử dụng hiển thị flexbox để xếp các phần tử cùng hàng
+  justify-content: space-between; // Căn giữa các phần tử theo chiều ngang
   align-items: center;
 }
-.tt2{
+
+.tt2 {
   width: 450px;
 }
-.titleDV{
-    font-size: 20px;
-    text-align: center;
-    color: #000;
+
+.titleDV {
+  font-size: 20px;
+  text-align: center;
+  color: #000;
 }
 
 .icon-selected {
-  color: rgb(255, 255, 255);  /* Đổi màu biểu tượng thành màu xanh khi được chọn */
-  font-size: 24px; /* Đổi kích thước biểu tượng khi được chọn */
-  /* Bất kỳ thuộc tính CSS tùy chỉnh nào khác mà bạn muốn áp dụng cho biểu tượng khi được chọn */
-} 
+  color: rgb(255, 255, 255); // Đổi màu biểu tượng thành màu xanh khi được chọn
+  font-size: 24px; // Đổi kích thước biểu tượng khi được chọn
+  // Bất kỳ thuộc tính CSS tùy chỉnh nào khác mà bạn muốn áp dụng cho biểu tượng khi được chọn
+}
+
 .error-message {
   position: fixed;
   top: 50%;
@@ -95,12 +103,14 @@
 .error-message button {
   margin-top: 10px;
 }
-.dsghe{
+
+.dsghe {
   width: auto;
   height: auto;
   margin-right: 20px;
 }
-.ds{
+
+.ds {
   orientation: landscape;
 }
 
@@ -117,21 +127,21 @@
 }
 
 .selected-seats p:last-child {
-  margin-top: 5px; /* Khoảng cách giữa danh sách và phần trên */
-  font-weight: normal; /* Bỏ đậm cho phần danh sách */
+  margin-top: 5px; // Khoảng cách giữa danh sách và phần trên
+  font-weight: normal; // Bỏ đậm cho phần danh sách
 }
 
-/* Định dạng phần drop-off */
+// Định dạng phần drop-off
 .dropoff {
-  margin-top: 20px; /* Đặt khoảng cách từ phần danh sách ghế đã chọn */
+  margin-top: 20px; // Đặt khoảng cách từ phần danh sách ghế đã chọn
 }
 
-/* Định dạng label */
+// Định dạng label
 .dropoff label {
   font-weight: bold;
 }
 
-/* Định dạng select box */
+// Định dạng select box
 .dropoff select {
   width: 100%;
   padding: 8px;
@@ -141,18 +151,17 @@
   font-size: 16px;
 }
 
-
-/* Định dạng phần pickup */
+// Định dạng phần pickup
 .pickup {
-  margin-top: 20px; /* Đặt khoảng cách từ phần danh sách ghế đã chọn */
+  margin-top: 20px; // Đặt khoảng cách từ phần danh sách ghế đã chọn
 }
 
-/* Định dạng label */
+// Định dạng label
 .pickup label {
   font-weight: bold;
 }
 
-/* Định dạng select box */
+// Định dạng select box
 .pickup select {
   width: 100%;
   padding: 8px;
@@ -162,26 +171,25 @@
   font-size: 16px;
 }
 
-/* Định dạng phần pickup-dropoff */
+// Định dạng phần pickup-dropoff
 .pickup-dropoff {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
-  
 }
 
-/* Định dạng phần pickup */
+// Định dạng phần pickup
 .pickup {
   width: 45%;
 }
 
-/* Định dạng phần dropoff */
+// Định dạng phần dropoff
 .dropoff {
   width: 45%;
 }
 
-/* Định dạng label */
+// Định dạng label
 .pickup label,
 .dropoff label {
   font-weight: bold;
@@ -189,7 +197,7 @@
   margin-bottom: 5px;
 }
 
-/* Định dạng select box */
+// Định dạng select box
 .pickup select,
 .dropoff select {
   width: 100%;

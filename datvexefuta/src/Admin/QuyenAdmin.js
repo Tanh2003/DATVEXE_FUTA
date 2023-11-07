@@ -3,8 +3,8 @@
 import "./Admin.css";
 import {DashBoard} from "../Admin/Components/Dashboard"
 import {Header} from "../Admin/Components/Header"
-import XeManager from "../Admin/CRUD_xe/XeManager";
-export const IndexAdmin = () => {
+import QuyenHanManager from "./CRUD_QuyenHan/QuyenHanManager";
+export const QuyenAdmin = () => {
   return (
     <>
     
@@ -12,7 +12,7 @@ export const IndexAdmin = () => {
         <DashBoard />
         <div className="main--content">
           <Header/>
-               <XeManager/>
+               <QuyenHanManager/>
           
           
         </div>
@@ -23,4 +23,4 @@ export const IndexAdmin = () => {
   );
 };
 
-export default IndexAdmin;
+export default QuyenAdmin;

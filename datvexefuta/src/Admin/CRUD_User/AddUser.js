@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import "./AddUser.scss"
-import Navbar from '../Components/Navbar';
-import Sidebar from '../Components/Sidebar';
+
 import {createNewUseService} from '../../userService';
 import DatePicker from "react-datepicker";
 
@@ -297,10 +296,10 @@ class AddUser extends Component {
        
         return (
             <>
-             <Navbar/>
+           
              <div className="container-fluid" id="main">
                <div className="row row-offcanvas row-offcanvas-left">
-               <Sidebar/>
+               
             <div className="col main pt-5 mt-3">
 
                 <div className='title'>

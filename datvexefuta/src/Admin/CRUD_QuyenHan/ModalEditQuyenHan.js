@@ -1,31 +1,26 @@
 import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { emitter } from "../../utils/emitter";
-import { toast } from "react-toastify";
-import _ from "lodash";
 import "../Admin.css";
-
-class ModalXe extends Component {
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import _ from "lodash";
+class ModalEditQuyenHan extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      soxe: "",
-      loaixe:"" ,
-      manv:"",
+      tenquyen: "",
+     
     };
-    this.listenToEmitter();
   }
-  listenToEmitter = () => {
-    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
-      //reset state
+
+  componentDidMount() {
+    let user = this.props.currentUser;
+    // cachs 2 //let {CurrentUser}=this.props;
+    if (user && !_.isEmpty(user)) {
       this.setState({
-        soxe: "",
-        loaixe:"" ,
-        manv:"",
+        id: user.id,
+        tenquyen: user.tenquyen,
+       
       });
-    });
-  };
- componentDidMount() {
+    }
   }
 
   toggle = () => {
@@ -48,11 +43,10 @@ class ModalXe extends Component {
 
     // console.log(event.target.value,id)
   };
-  checkValideInput = () => {
+
+  checkValideInputEdit = () => {
     let isValid = true;
-    let arrInput = [
-      "soxe","loaixe"
-    ];
+    let arrInput = ["tenquyen"];
 
     for (let i = 0; i < arrInput.length; i++) {
       console.log("check inside loop", this.state[arrInput[i]], arrInput[i]);
@@ -66,15 +60,11 @@ class ModalXe extends Component {
     return isValid;
   };
 
-  handleAddXe = () => {
-    let isValid = this.checkValideInput();
+  handleSaveUser = () => {
+    let isValid = this.checkValideInputEdit();
 
     if (isValid == true) {
-      //call api create modal
-      //  console.log('check props child:',this.props);
-      this.props.createNewXe(this.state);
-      // console.log('data modal:',this.state)
-      toast.success("Tạo Thành công");
+      this.props.editUser(this.state);
     }
   };
   render() {
@@ -88,13 +78,13 @@ class ModalXe extends Component {
         size="lg"
         centered
       >
-             <ModalHeader
+              <ModalHeader
   className="custom-header" // Use the custom CSS class
   toggle={() => {
     this.toggle();
   }}
 >
-  Thêm xe
+  Sửa Tên quyền
   <span className="close-button" onClick={this.toggle}>
     &times; {/* X symbol */}
   </span>
@@ -104,28 +94,18 @@ class ModalXe extends Component {
             <div className="container center">
               <div className="row-12">
                 <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label>Số xe </label>
+                <div className="form-group col-md-6">
+                    <label>Tên quyền</label>
                     <input
                       className="form-control"
                       placeholder=" nhap so xe...."
                       onChange={(event) => {
-                        this.handleOnChangeInput(event, "soxe");
+                        this.handleOnChangeInput(event, "tenquyen");
                       }}
-                      value={this.state.soxe}
+                      value={this.state.tenquyen}
                     />
                   </div>
-                  <div className="form-group col-md-6">
-                    <label>Loại xe </label>
-                    <input
-                      className="form-control"
-                      placeholder=" nhap loai xe...."
-                      onChange={(event) => {
-                        this.handleOnChangeInput(event, "loaixe");
-                      }}
-                      value={this.state.loaixe}
-                    />
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -137,10 +117,10 @@ class ModalXe extends Component {
             color="primary"
             className="px-3"
             onClick={() => {
-              this.handleAddXe();
+              this.handleSaveUser();
             }}
           >
-            Thêm
+            Lưu thay đổi
           </Button>
           <Button
             variant="secondary"
@@ -158,4 +138,4 @@ class ModalXe extends Component {
   }
 }
 
-export default ModalXe;
+export default ModalEditQuyenHan;

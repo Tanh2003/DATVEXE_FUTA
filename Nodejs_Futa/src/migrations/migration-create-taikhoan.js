@@ -19,13 +19,6 @@ module.exports = {
             matkhau: {
                 type: Sequelize.STRING
             },
-            manv: {
-                type: Sequelize.INTEGER
-            },
-            makh: {
-                type: Sequelize.INTEGER
-            },
-
             maquyen: {
                 type: Sequelize.INTEGER
             },

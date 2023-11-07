@@ -1,33 +1,44 @@
 import React, { Component } from "react";
+
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { emitter } from "../../utils/emitter";
-import { toast } from "react-toastify";
+
 import _ from "lodash";
 import "../Admin.css";
 
-class ModalXe extends Component {
+import  {getAllQuyenhan} from "../../userService";
+
+class ModalEditTaikhoan extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      soxe: "",
-      loaixe:"" ,
-      manv:"",
+      arrquyenhan: [],
+      sdt: "" ,
+      matkhau:"",
+      maquyen:""
     };
-    this.listenToEmitter();
-  }
-  listenToEmitter = () => {
-    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
-      //reset state
-      this.setState({
-        soxe: "",
-        loaixe:"" ,
-        manv:"",
-      });
-    });
-  };
- componentDidMount() {
   }
 
+  async componentDidMount() {
+    await this.getAllQuyenHanReact();
+    let user = this.props.currentUser;
+    // cachs 2 //let {CurrentUser}=this.props;
+    if (user && !_.isEmpty(user)) {
+      this.setState({
+        id: user.id,
+       sdt:user.sdt,
+       matkhau:user.matkhau,
+       maquyen:user.maquyen
+      });
+    }
+  }
+  getAllQuyenHanReact = async () => {
+    let response = await  getAllQuyenhan("ALL");
+    if (response && response.errcode == 0) {
+      this.setState({
+        arrquyenhan: response.quyenhan,
+      });
+    }
+  };
   toggle = () => {
     this.props.toggleFromParent();
   };
@@ -48,11 +59,10 @@ class ModalXe extends Component {
 
     // console.log(event.target.value,id)
   };
-  checkValideInput = () => {
+
+  checkValideInputEdit = () => {
     let isValid = true;
-    let arrInput = [
-      "soxe","loaixe"
-    ];
+    let arrInput = ["sdt","matkhau","maquyen"];
 
     for (let i = 0; i < arrInput.length; i++) {
       console.log("check inside loop", this.state[arrInput[i]], arrInput[i]);
@@ -66,18 +76,15 @@ class ModalXe extends Component {
     return isValid;
   };
 
-  handleAddXe = () => {
-    let isValid = this.checkValideInput();
+  handleSaveUser = () => {
+    let isValid = this.checkValideInputEdit();
 
     if (isValid == true) {
-      //call api create modal
-      //  console.log('check props child:',this.props);
-      this.props.createNewXe(this.state);
-      // console.log('data modal:',this.state)
-      toast.success("Tạo Thành công");
+      this.props.editUser(this.state);
     }
   };
   render() {
+    let quyen=this.state.arrquyenhan;
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -88,13 +95,13 @@ class ModalXe extends Component {
         size="lg"
         centered
       >
-             <ModalHeader
+         <ModalHeader
   className="custom-header" // Use the custom CSS class
   toggle={() => {
     this.toggle();
   }}
 >
-  Thêm xe
+  Sửa Thông tin Tài khoản
   <span className="close-button" onClick={this.toggle}>
     &times; {/* X symbol */}
   </span>
@@ -105,27 +112,47 @@ class ModalXe extends Component {
               <div className="row-12">
                 <div className="form-row">
                   <div className="form-group col-md-6">
-                    <label>Số xe </label>
+                    <label>Tài khoản</label>
                     <input
                       className="form-control"
-                      placeholder=" nhap so xe...."
+                      placeholder="iphone"
                       onChange={(event) => {
-                        this.handleOnChangeInput(event, "soxe");
+                        this.handleOnChangeInput(event, "sdt");
                       }}
-                      value={this.state.soxe}
+                      value={this.state.sdt}
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label>Loại xe </label>
+                    <label>mật khẩu</label>
                     <input
                       className="form-control"
-                      placeholder=" nhap loai xe...."
+                      placeholder="iphone"
                       onChange={(event) => {
-                        this.handleOnChangeInput(event, "loaixe");
+                        this.handleOnChangeInput(event, "matkhau");
                       }}
-                      value={this.state.loaixe}
+                      value={this.state.matkhau}
                     />
                   </div>
+                  <div className="form-group col-md-6">
+                    <label>Quyền</label>
+                    <select className="form-control"
+                     onChange={(event) => {
+                      this.handleOnChangeInput(event, "maquyen");
+                    }}
+                    value={this.state.maquyen}>
+                         <option  value=''>Chọn quyền</option>
+                     {
+                      quyen&&quyen.length>0
+                      &&quyen.map((item,index)=>{
+                        return(
+                          <option  value={item.id}>{item.tenquyen}</option>
+                        )
+                      })
+                     }
+                     
+                    </select>
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -137,10 +164,10 @@ class ModalXe extends Component {
             color="primary"
             className="px-3"
             onClick={() => {
-              this.handleAddXe();
+              this.handleSaveUser();
             }}
           >
-            Thêm
+            Lưu thay đổi
           </Button>
           <Button
             variant="secondary"
@@ -158,4 +185,4 @@ class ModalXe extends Component {
   }
 }
 
-export default ModalXe;
+export default ModalEditTaikhoan;

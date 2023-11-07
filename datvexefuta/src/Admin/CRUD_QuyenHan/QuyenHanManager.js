@@ -1,46 +1,46 @@
 import React, { Component } from "react";
 import {
-  getAllXe,
-  createNewXe,
-  deleteXe,
-  editXe
+  getAllQuyenhan,
+  createNewQuyenhan,
+  deleteQuyenhan,
+  editQuyenhan
 } from "../../userService";
 import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import ModalXe from "./ModalXe";
-import ModalEditXe from "./ModalEditXe";
+
+
+import ModalQuyenHan from "./ModalQuyenHan";
+import ModalEditQuyenHan from "./ModalEditQuyenHan";
 
 
 
 
-
-
-class XeManager extends Component {
+class QuyenHanManager extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrXe: [],
+      arrquyenhan: [],
       isOpenModalEditProduct: false,
       isOpenModalCategories: false,
       productEdit: {},
       currentPage: 1,
       productsPerPage: 5,
-      previewImgURL:'',
+      
     };
     this.handlePageChange = this.handlePageChange.bind(this); // Thêm dòng này
   }
 
   async componentDidMount() {
   
-    await this.getAllXeReact();
+    await this.getAllQuyenHanReact();
   }
-  getAllXeReact = async () => {
-    let response = await  getAllXe("ALL");
+  getAllQuyenHanReact = async () => {
+    let response = await  getAllQuyenhan("ALL");
     if (response && response.errcode == 0) {
       this.setState({
-        arrXe: response.xe,
+        arrquyenhan: response.quyenhan,
       });
     }
   };
@@ -78,11 +78,11 @@ class XeManager extends Component {
   
   createNewXe = async (data) => {
     try {
-      let response = await createNewXe(data);
+      let response = await createNewQuyenhan(data);
       if (response && response.errcode !== 0) {
         alert(response.errMessage);
       } else {
-        await this.getAllXeReact();
+        await this.getAllQuyenHanReact();
         this.setState({
           isOpenModalCategories:false,
         });
@@ -98,12 +98,12 @@ class XeManager extends Component {
 
   handleDeleteXe = async (xe) => {
     try {
-      let res = await deleteXe(xe.id);
+      let res = await deleteQuyenhan(xe.id);
       if (res && res.errcode !== 0) {
         alert(res.errMessage);
         toast.error("Xóa thất bại");
       } else {
-        await this.getAllXeReact();
+        await this.getAllQuyenHanReact();
         toast.success("Xóa Thành công");
       }
       console.log(res);
@@ -121,9 +121,9 @@ class XeManager extends Component {
 
   doEditXe = async (user) => {
     try {
-      let res = await  editXe(user);
+      let res = await  editQuyenhan(user);
       if (res && res.errcode === 0) {
-        await this.getAllXeReact();
+        await this.getAllQuyenHanReact();
         toast.success("Sửa Thành công");
         this.setState({
           isOpenModalEditProduct: false,
@@ -152,20 +152,20 @@ class XeManager extends Component {
    */
 
   render() {
-    const { arrXe, currentPage, productsPerPage } = this.state;
+    const { arrquyenhan, currentPage, productsPerPage } = this.state;
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = arrXe.slice(indexOfFirstProduct, indexOfLastProduct);
+    const currentProducts = arrquyenhan.slice(indexOfFirstProduct, indexOfLastProduct);
     return (
       <div className="hello">
       
-         <ModalXe
+         <ModalQuyenHan
           isOpen={this.state.isOpenModalCategories}
           toggleFromParent={this.toggleCategoriesModal}
           createNewXe={this.createNewXe}
         />
         {this.state.isOpenModalEditProduct && (
-          <ModalEditXe
+          <ModalEditQuyenHan
             isOpen={this.state.isOpenModalEditProduct}
             toggleFromParent={this.toggleUserEditModal}
             currentUser={this.state.productEdit}
@@ -184,18 +184,19 @@ class XeManager extends Component {
                     className=" btn btn-primary px-3"
                     onClick={() => this.handleAddCategories()}
                   >
-                  <i class="fas fa-box mr-2"></i>Thêm  Thông tin xe
+                  <i class="fas fa-box mr-2"></i>Thêm tên quyền
                   </button>
                   
-                  <h2 className="h2--title">Danh sách Thông tin xe</h2>
+                  <h2 className="h2--title">Danh sách quyền</h2>
 
                   <div className="table-container">
                     <table>
                       <thead>
                         <tr>
                           <th>id</th>
-                          <th>Số Xe</th>
-                          <th>Loại xe</th>
+                          <th>Tên quyền</th>
+                          <th>Hành động</th>
+                        
                         </tr>
                       </thead>
                       <tbody>
@@ -204,8 +205,8 @@ class XeManager extends Component {
                     
                             return (
                               <tr key={index}>
-                                <td>{item.soxe}</td>
-                                <td>{item.loaixe}</td>
+                                <td>{item.id}</td>
+                                <td>{item.tenquyen}</td>
                                 <td>
                                   <button
                                     className="btn-edit"
@@ -237,7 +238,7 @@ class XeManager extends Component {
                   <div className="phantrang">
                   <Stack spacing={2}>
                     <Pagination shape="rounded"
-                      count={Math.ceil(arrXe.length / productsPerPage)}
+                      count={Math.ceil(arrquyenhan.length / productsPerPage)}
                       page={currentPage}
                       onChange={this.handlePageChange}
                     />
@@ -255,4 +256,4 @@ class XeManager extends Component {
   }
 }
 
-export default XeManager;
+export default QuyenHanManager;

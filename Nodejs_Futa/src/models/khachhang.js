@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         ngaysinh: DataTypes.DATE,
         gioitinh: DataTypes.STRING,
         email: DataTypes.STRING,
+        matk:DataTypes.INTEGER,
        
 
     }, {

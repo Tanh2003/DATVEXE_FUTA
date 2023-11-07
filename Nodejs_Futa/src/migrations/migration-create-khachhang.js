@@ -30,6 +30,9 @@ module.exports = {
             email: {
                 type: Sequelize.STRING
             },
+            matk: {
+                type: Sequelize.INTEGER
+            },
             
             createdAt: {
                 allowNull: false,

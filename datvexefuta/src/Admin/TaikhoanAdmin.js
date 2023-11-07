@@ -3,8 +3,8 @@
 import "./Admin.css";
 import {DashBoard} from "../Admin/Components/Dashboard"
 import {Header} from "../Admin/Components/Header"
-import XeManager from "../Admin/CRUD_xe/XeManager";
-export const IndexAdmin = () => {
+import TaikhoanManager from "./CRUD_TaiKhoan/TaikhoanManager";
+export const TaikhoanAdmin = () => {
   return (
     <>
     
@@ -12,7 +12,7 @@ export const IndexAdmin = () => {
         <DashBoard />
         <div className="main--content">
           <Header/>
-               <XeManager/>
+               <TaikhoanManager/>
           
           
         </div>
@@ -23,4 +23,4 @@ export const IndexAdmin = () => {
   );
 };
 
-export default IndexAdmin;
+export default TaikhoanAdmin;

@@ -1,62 +1,49 @@
 import React, { Component } from "react";
 import {
-  getAllXe,
-  createNewXe,
-  deleteXe,
-  editXe
+  getAllTaikhoan,
+  createNewTaikhoan,
+  deleteTaikhoan,
+  editTaikhoan,
+  
+
 } from "../../userService";
 import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import ModalXe from "./ModalXe";
-import ModalEditXe from "./ModalEditXe";
+import ModalEditTaikhoan from "./ModalEditTaikhoan";
+import ModalTaikhoan from "./ModalTaikhoan";
 
 
 
 
-
-
-class XeManager extends Component {
+class TaikhoanManager extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrXe: [],
+      arrTaikhoan: [],
       isOpenModalEditProduct: false,
       isOpenModalCategories: false,
       productEdit: {},
       currentPage: 1,
       productsPerPage: 5,
-      previewImgURL:'',
+    
     };
     this.handlePageChange = this.handlePageChange.bind(this); // Thêm dòng này
   }
 
   async componentDidMount() {
   
-    await this.getAllXeReact();
+    await this.getAllTaikhoanReact();
   }
-  getAllXeReact = async () => {
-    let response = await  getAllXe("ALL");
+  getAllTaikhoanReact = async () => {
+    let response = await getAllTaikhoan("ALL");
     if (response && response.errcode == 0) {
       this.setState({
-        arrXe: response.xe,
+        arrTaikhoan: response.taikhoans,
       });
     }
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   handleAddCategories = () => {
     this.setState({
@@ -76,13 +63,13 @@ class XeManager extends Component {
     });
   };
   
-  createNewXe = async (data) => {
+  createNewTaikhoan = async (data) => {
     try {
-      let response = await createNewXe(data);
+      let response = await createNewTaikhoan(data);
       if (response && response.errcode !== 0) {
         alert(response.errMessage);
       } else {
-        await this.getAllXeReact();
+        await this. getAllTaikhoanReact();
         this.setState({
           isOpenModalCategories:false,
         });
@@ -96,14 +83,14 @@ class XeManager extends Component {
     // console.log('check data from child',data)
   };
 
-  handleDeleteXe = async (xe) => {
+  handleDeleteUser = async (user) => {
     try {
-      let res = await deleteXe(xe.id);
+      let res = await  deleteTaikhoan(user.id);
       if (res && res.errcode !== 0) {
         alert(res.errMessage);
         toast.error("Xóa thất bại");
       } else {
-        await this.getAllXeReact();
+        await this. getAllTaikhoanReact();
         toast.success("Xóa Thành công");
       }
       console.log(res);
@@ -119,11 +106,11 @@ class XeManager extends Component {
     });
   };
 
-  doEditXe = async (user) => {
+  doEditUser = async (user) => {
     try {
-      let res = await  editXe(user);
+      let res = await editTaikhoan(user);
       if (res && res.errcode === 0) {
-        await this.getAllXeReact();
+        await this. getAllTaikhoanReact();
         toast.success("Sửa Thành công");
         this.setState({
           isOpenModalEditProduct: false,
@@ -152,24 +139,24 @@ class XeManager extends Component {
    */
 
   render() {
-    const { arrXe, currentPage, productsPerPage } = this.state;
+    const { arrTaikhoan, currentPage, productsPerPage } = this.state;
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = arrXe.slice(indexOfFirstProduct, indexOfLastProduct);
+    const currentProducts = arrTaikhoan.slice(indexOfFirstProduct, indexOfLastProduct);
     return (
       <div className="hello">
       
-         <ModalXe
+         <ModalTaikhoan
           isOpen={this.state.isOpenModalCategories}
           toggleFromParent={this.toggleCategoriesModal}
-          createNewXe={this.createNewXe}
+          createNewTaikhoan={this.createNewTaikhoan}
         />
         {this.state.isOpenModalEditProduct && (
-          <ModalEditXe
+          <ModalEditTaikhoan
             isOpen={this.state.isOpenModalEditProduct}
             toggleFromParent={this.toggleUserEditModal}
             currentUser={this.state.productEdit}
-            editUser={this.doEditXe}
+            editUser={this.doEditUser}
           />
         )}
 
@@ -184,18 +171,18 @@ class XeManager extends Component {
                     className=" btn btn-primary px-3"
                     onClick={() => this.handleAddCategories()}
                   >
-                  <i class="fas fa-box mr-2"></i>Thêm  Thông tin xe
+                  <i class="fas fa-box mr-2"></i>Thêm Tài khoản
                   </button>
                   
-                  <h2 className="h2--title">Danh sách Thông tin xe</h2>
+                  <h2 className="h2--title">Danh sách Tài khoản</h2>
 
                   <div className="table-container">
                     <table>
                       <thead>
                         <tr>
-                          <th>id</th>
-                          <th>Số Xe</th>
-                          <th>Loại xe</th>
+                          <th>Số điện thoại</th>
+                          <th>Loại tài khoản</th>
+                          <th>Hành động</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -204,8 +191,9 @@ class XeManager extends Component {
                     
                             return (
                               <tr key={index}>
-                                <td>{item.soxe}</td>
-                                <td>{item.loaixe}</td>
+                                <td>{item.sdt}</td>
+                                <td>cho xu ly</td>
+  
                                 <td>
                                   <button
                                     className="btn-edit"
@@ -221,7 +209,7 @@ class XeManager extends Component {
                                   <button
                                     className="btn-del"
                                     onClick={() => {
-                                      this.handleDeleteXe(item);
+                                      this.handleDeleteUser(item);
                                     }}
                                   >
                                     <i className="fa-regular fa-trash-can"></i>
@@ -237,7 +225,7 @@ class XeManager extends Component {
                   <div className="phantrang">
                   <Stack spacing={2}>
                     <Pagination shape="rounded"
-                      count={Math.ceil(arrXe.length / productsPerPage)}
+                      count={Math.ceil(arrTaikhoan.length / productsPerPage)}
                       page={currentPage}
                       onChange={this.handlePageChange}
                     />
@@ -255,4 +243,4 @@ class XeManager extends Component {
   }
 }
 
-export default XeManager;
+export default TaikhoanManager;

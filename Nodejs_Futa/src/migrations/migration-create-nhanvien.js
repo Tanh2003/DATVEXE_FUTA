@@ -23,6 +23,9 @@ module.exports = {
             gioitinh: {
                 type: Sequelize.STRING
             },
+            matk:{
+                type:Sequelize.INTEGER
+            },
            
             createdAt: {
                 allowNull: false,

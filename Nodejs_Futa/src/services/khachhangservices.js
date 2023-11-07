@@ -50,6 +50,7 @@ let CreateNewkhachhang=(data)=>{
                    ngaysinh:data.ngaysinh,
                    gioitinh:data.gioitinh,
                    email:data.email,
+                   matk:data.matk,
                
                 });
                 resolve({
@@ -115,6 +116,7 @@ let updatekhachhangData=(data)=>{
              khachhang.ngaysinh=data.ngaysinh;
              khachhang.gioitinh=data.gioitinh;
              khachhang.email=data.email;
+             matk.matk=data.matk;
             
                 await khachhang.save();
                 resolve({

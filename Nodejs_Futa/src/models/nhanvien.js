@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         ngaysinh: DataTypes.DATE,
         hoten: DataTypes.STRING,
         diachi: DataTypes.STRING,
+        matk:DataTypes.INTEGER,
 
 
     }, {
