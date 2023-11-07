@@ -1,9 +1,66 @@
 import phone from "../image/phone.svg";
+import loginxe from "../image/TVC.svg";
+import logotext from "../image/logoText.svg";
+import React, { useState } from 'react';
 import "./LoginFuta.scss";
 import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
-function LoginFuta() { // Đặt tên thành phần React là Login thay vì login
+import {handleLoginFuta} from "../userService";
+import { Link,useHistory,Redirect } from "react-router-dom";
 
+function LoginFuta() { // Đặt tên thành phần React là Login thay vì login
+    const history = useHistory();
+
+    const [sdt, setsdt] = useState('');
+    const [matkhau, setmatkhau] = useState('');
+    const [errMessage, setErrMessage] = useState('');
+    const handleOnChangeUsername = (event) => {
+        setsdt(event.target.value);
+    }
+    
+    const handleOnChangematkhau= (event) => {
+        setmatkhau(event.target.value);
+    }
+    const handleLoginne = async () => {
+      setErrMessage('');
+    
+      try {
+          let data = await handleLoginFuta(sdt,matkhau);
+          if (data && data.errcode !== 0) {
+              setErrMessage(data.message);
+          }
+          if (data && data.errcode === 0) {
+    
+            // localStorage.setItem('user', JSON.stringify(data.user));
+           
+            // if(data.user.roleId=="R1"){
+            //   history.replace("/admin/user"); // Sử dụng replace thay vì push
+            //   window.location.reload(); // Tải lại trang
+            // }else{
+            //   history.replace("/"); // Sử dụng replace thay vì push
+            //   window.location.reload(); // Tải lại trang
+            // }
+          history.replace("/admin/xe"); // Sử dụng replace thay vì push
+            
+              console.log("login succeeds");
+          }
+      } catch (error) {
+          if (error.response) {
+              if (error.response.data) {
+                  setErrMessage(error.response.data.message);
+              }
+          }
+          console.log("Ntanh", error.response);
+      }
+    }
+    const [isShowPassword, setIsShowPassword] = useState(false);
+    const handleShowHidePassword = () => {
+      setIsShowPassword(!isShowPassword);
+    };
+
+
+ 
+ 
     return (
         <div>
             
@@ -12,24 +69,41 @@ function LoginFuta() { // Đặt tên thành phần React là Login thay vì log
              <div className="body-content">
                  <div className="login-box">
                      <div className="login-images">
-                         <div className="login-image1"></div>
-                         <div className="login-image2"></div>
+                         <div className="login-image1"><img src={logotext}/></div>
+                         <div className="login-image2"><img src={loginxe}/></div>
                      </div>
                      <div className="create-account">
                          <b>Đăng nhập tài khoản</b>
                          <div className="login-left">
                             <img src={phone} className=""/>
-                             <a className="login" >Đăng nhập</a>
-                             <a className="register" >Đăng ký</a>
+                            <Link to="/login" className="login">
+  Đăng nhập
+</Link>
+<Link to="/register" className="register">
+  Đăng ký
+</Link>
                          </div>
                          <hr className="custom-hr" />
                          <div className="input-group">
-                             <input type="text" name="username" placeholder="Nhập số điện thoại" />
+                             <input type="text" placeholder="Nhập số điện thoại" 
+                              value={sdt}
+                              onChange={handleOnChangeUsername}
+                             />
+                            
                          </div>
                          <div className="input-group">
-                             <input type="password" name="password" placeholder="Nhập mật khẩu" />
+                             <input type={isShowPassword ? 'text' : 'password'} required name="password" placeholder="Nhập mật khẩu" 
+                              value={matkhau}
+                              onChange={handleOnChangematkhau}
+                             />
+                              <span onClick={handleShowHidePassword} className="conmat">
+    <i className={isShowPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
+  </span> 
                          </div>
-                         <button type="submit" >Đăng nhập</button>
+                         <div className='col-12' style={{ color: 'red' }}>
+                        {errMessage}
+                    </div>
+                         <button  className="btn-login" onClick={handleLoginne}>Đăng nhập</button>
                      </div>
                  </div>
              </div>

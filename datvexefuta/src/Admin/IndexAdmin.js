@@ -1,8 +1,8 @@
 
 
 import "./Admin.css";
-import {DashBoard} from "../Admin/Components/Dashboard"
-import {Header} from "../Admin/Components/Header"
+import {DashBoard} from "../Admin/Components/DashBoard";
+import {Header} from "../Admin/Components/Header";
 import XeManager from "../Admin/CRUD_xe/XeManager";
 export const IndexAdmin = () => {
   return (

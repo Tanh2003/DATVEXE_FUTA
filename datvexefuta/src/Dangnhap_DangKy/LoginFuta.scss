@@ -4,8 +4,9 @@
 }
 
 .login-box {
-    width: 100%;
-    height: 470px;
+    margin-left: 180px;
+    width: 1000px;
+    height: 450px;
     margin-top: -80px; /* Điều chỉnh khoảng cách giữa .login-box và header để đè lên header */
     border: 1px solid rgba(239, 82, 34, 0.6);
     border-radius: 20px;
@@ -21,7 +22,7 @@
 .create-account {
     background-color: #fff;
     padding: 20px;
-    max-width: 400px;
+    width: 60%;
     margin: 0 auto;
     text-align: center;
 
@@ -94,21 +95,26 @@
     transform: center; /* Để đặt vị trí chính giữa dọc */
 }
 
-button[type="submit"] {
+.btn-login{
     background-color: #ef5222;
     color: #fff;
     border: none;
     border-radius: 20px;
-    padding: 10px 20px;
+    margin-top: 10px;
     cursor: pointer;
     font-size: 16px;
     width: 100%;
-    margin-top: 20px;
+    height: 40px;
+
+
+
    
 
     &:hover {
         background-color: #ef5222;
-    }
+}
+
+
 }
 
 .login-form {
@@ -130,35 +136,30 @@ button[type="submit"] {
         border: none;
         cursor: pointer;
         width: 100%;
+        position: relative; /* Đặt vị trí là tương đối */
+      
     }
 }
 
 .login-images {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-repeat: no-repeat;
-    margin-left: 20px; /* Thêm khoảng cách bên trái */
-}
 
-.login-image1 {
-    background-image: url('../image/logoText.svg');
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100px;
-    margin-right: 50px;
-}
-
-.login-image2 {
-    background-image: url('../image/TVC.svg');
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 500px;
-    margin-right: 260px;
-    background-position: center center;
-}
+    justify-content: space-between; // Canh 2 hình về 2 bên
+    width: 900px; // Độ rộng cố định 300px
+    margin: 0 auto; // Canh giữa 2 hình trong khung 300px
+  
+    .login-image1,
+    .login-image2 {
+      width: 75%; // Mỗi hình chiếm 50% chiều rộng của khung
+      max-width: 100%; // Giới hạn kích thước tối đa cho hình
+    }
+  
+    img {
+      max-width: 100%; // Đảm bảo hình không vượt quá kích thước của nó
+      height: auto; // Duy trì tỷ lệ khung hình
+    }
+  }
+  
+  
 
 .text-main {
     b {
@@ -175,3 +176,10 @@ button[type="submit"] {
         font-size: 16px;
     }
 }
+
+.conmat {
+  position: absolute;
+   margin-left: 315px;
+   margin-top: 30px;
+    /* Sử dụng top và left để điều chỉnh vị trí của span trong input */
+  }

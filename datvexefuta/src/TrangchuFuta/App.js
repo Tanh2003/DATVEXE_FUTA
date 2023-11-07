@@ -14,6 +14,7 @@ import XeManager from '../Admin/CRUD_xe/XeManager';
 import QuyenAdmin from '../Admin/QuyenAdmin';
 import TaikhoanAdmin from "../Admin/TaikhoanAdmin";
 
+import RegisterFuta from "../Dangnhap_DangKy/RegisterFuta";
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/admin/xe" exact component={IndexAdmin} />
         <Route path="/admin/quyen" component={QuyenAdmin} />
         <Route path="/Login" component={LoginFuta} />
+        <Route path="/register" component={RegisterFuta} />
         <Route path="/them" component={AddUser} />
         <Route path="/sua" component={EditUser} />
         <Route path="/xe" component={XeManager} />

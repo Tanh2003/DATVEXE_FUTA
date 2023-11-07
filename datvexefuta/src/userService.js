@@ -48,7 +48,9 @@ const editXe = (inputData) => {
 }
 
 // all api taikhoan 
-
+const handleLoginFuta = (sdtne, matkhaune) => {
+    return axios.post('/api/login/futa',{ sdt:sdtne, matkhau:matkhaune });
+}
 const getAllTaikhoan = (inputId) => {
     //teamplate String
     return axios.get(`/api/get-all-taikhoan?id=${inputId}`)
@@ -118,6 +120,7 @@ export {
     getAllQuyenhan,
     createNewQuyenhan,
     deleteQuyenhan,
-    editQuyenhan
+    editQuyenhan,
+    handleLoginFuta
 
 }

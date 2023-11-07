@@ -1,7 +1,7 @@
 
 
 import "./Admin.css";
-import {DashBoard} from "../Admin/Components/Dashboard"
+import {DashBoard} from "../Admin/Components/DashBoard"
 import {Header} from "../Admin/Components/Header"
 import TaikhoanManager from "./CRUD_TaiKhoan/TaikhoanManager";
 export const TaikhoanAdmin = () => {
