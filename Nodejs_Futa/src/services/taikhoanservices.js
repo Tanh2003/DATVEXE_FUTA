@@ -103,7 +103,14 @@ let getAlltaikhoans =(taikhoanId)=>{
                     // ẩn mật khẩu
                     attributes:{
                         exclude:['matkhau']
-                    }
+                    },
+                    include: [{
+                        model: db.quyenhan,
+                        as: 'idmaquyenData',
+                        attributes: ['tenquyen', ],
+                    }, ],
+                    raw: true,
+                    nest: true,
 
                 })
 
@@ -120,6 +127,31 @@ let getAlltaikhoans =(taikhoanId)=>{
                
             }
             resolve(taikhoans)
+        } catch (e) {
+            reject(e);
+        }
+    })
+
+}
+let getAlltaikhoanNhanvien =(taikhoanId)=>{
+    return new Promise(async(resolve,reject)=>{
+        try {
+            let nhanvien='';
+            if(taikhoanId=='ALL'){
+                nhanvien=db.taikhoan.findAll({
+
+                    where:{maquyen:4},
+                    // ẩn mật khẩu
+                    attributes:{
+                        exclude:['matkhau']
+                    },
+                   
+
+                })
+
+            }
+           
+            resolve(nhanvien)
         } catch (e) {
             reject(e);
         }
@@ -236,5 +268,6 @@ module.exports={
     CreateNewtaikhoan:CreateNewtaikhoan,
     deletetaikhoan:deletetaikhoan,
     updatetaikhoanData:updatetaikhoanData,
+    getAlltaikhoanNhanvien:getAlltaikhoanNhanvien
 
 }

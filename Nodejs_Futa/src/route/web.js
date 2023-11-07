@@ -7,7 +7,7 @@ import XeController from "../controllers/xeController";
 import taikhoanController from "../controllers/taikhoanController";
 
 import khachhangController from "../controllers/khachhangController";
-
+import nhanvienController from "../controllers/nhanvienController";
 import VexeController from "../controllers/vexeController";
 
  import QuyenhanController from "../controllers/quyenhanController";
@@ -44,6 +44,7 @@ let initWebRouters = (app) => {
   // api cua tai khoan
   router.post("/api/login/futa", taikhoanController.handleLogin);
   router.get("/api/get-all-taikhoan", taikhoanController.handleGetAlltaikhoan);
+  router.get("/api/get-all-taikhoannhanvien", taikhoanController.laytatcataikhoannhanvien);
   router.post(
     "/api/create-new-taikhoan",
     taikhoanController.handleCreateNewtaikhoan
@@ -71,6 +72,23 @@ let initWebRouters = (app) => {
     "/api/delete-khachhang",
     khachhangController.handleDeletekhachhang
   );
+ // api cua  nhan vien
+ router.get(
+  "/api/get-all-nhanvien",
+  nhanvienController.handleGetAllnhanvien
+);
+router.post(
+  "/api/create-new-nhanvien",
+  nhanvienController.handleCreateNewnhanvien
+);
+router.put(
+  "/api/edit-nhanvien",
+  nhanvienController.handleEditnhanvien
+);
+router.delete(
+  "/api/delete-nhanvien",
+  nhanvienController.handleDeletenhanvien
+);
 
 
 

@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-
+            nhanvien.belongsTo(models.taikhoan, { foreignKey: 'matk', targetKey: 'id', as: 'idmatkData' })
         }
     };
     nhanvien.init({
 
     
-        sdtnv: DataTypes.STRING,
+      
         gioitinh: DataTypes.BOOLEAN,
         ngaysinh: DataTypes.DATE,
         hoten: DataTypes.STRING,

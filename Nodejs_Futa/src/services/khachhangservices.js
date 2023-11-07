@@ -18,6 +18,7 @@ let getAllkhachhangs =(khachhangId)=>{
             let khachhangs='';
             if(khachhangId=='ALL'){
                 khachhangs=db.khachhang.findAll({
+                    order:[["createdAt","DESC"]],
                 })
 
             }
@@ -116,7 +117,7 @@ let updatekhachhangData=(data)=>{
              khachhang.ngaysinh=data.ngaysinh;
              khachhang.gioitinh=data.gioitinh;
              khachhang.email=data.email;
-             matk.matk=data.matk;
+           
             
                 await khachhang.save();
                 resolve({

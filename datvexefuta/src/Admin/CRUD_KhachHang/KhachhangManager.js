@@ -1,46 +1,40 @@
 import React, { Component } from "react";
 import {
-  getAllTaikhoan,
-  createNewTaikhoan,
-  deleteTaikhoan,
-  editTaikhoan,
-  
-
+  getAllKhachhang,
+  createNewKhachhang,
+  deleteKhachhang,
+  editKhachhang,
 } from "../../userService";
 import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import ModalEditTaikhoan from "./ModalEditTaikhoan";
-import ModalTaikhoan from "./ModalTaikhoan";
 
+import ModalKhachhang from "./ModalKhachhang";
+import ModalEditKhachhang from "./ModalEditKhachhang";
 
-
-
-class TaikhoanManager extends Component {
+class KhachhangManager extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrTaikhoan: [],
+      arrkhachhang: [],
       isOpenModalEditProduct: false,
       isOpenModalCategories: false,
       productEdit: {},
       currentPage: 1,
       productsPerPage: 5,
-    
     };
     this.handlePageChange = this.handlePageChange.bind(this); // Thêm dòng này
   }
 
   async componentDidMount() {
-  
-    await this.getAllTaikhoanReact();
+    await this.getAllkhachhangReact();
   }
-  getAllTaikhoanReact = async () => {
-    let response = await getAllTaikhoan("ALL");
+  getAllkhachhangReact = async () => {
+    let response = await getAllKhachhang("ALL");
     if (response && response.errcode == 0) {
       this.setState({
-        arrTaikhoan: response.taikhoans,
+        arrkhachhang: response.khachhangs,
       });
     }
   };
@@ -50,31 +44,29 @@ class TaikhoanManager extends Component {
       isOpenModalCategories: true,
     });
   };
-  toggleCategoriesModal= () => {
+  toggleCategoriesModal = () => {
     this.setState({
       isOpenModalCategories: !this.state.isOpenModalCategories,
     });
   };
 
- 
   toggleUserEditModal = () => {
     this.setState({
       isOpenModalEditProduct: !this.state.isOpenModalEditProduct,
     });
   };
-  
-  createNewTaikhoan = async (data) => {
+
+  createNewXe = async (data) => {
     try {
-      let response = await createNewTaikhoan(data);
+      let response = await createNewKhachhang(data);
       if (response && response.errcode !== 0) {
         alert(response.errMessage);
       } else {
-        await this. getAllTaikhoanReact();
+        await this.getAllkhachhangReact();
         this.setState({
-          isOpenModalCategories:false,
+          isOpenModalCategories: false,
         });
         emitter.emit("EVENT_CLEAR_MODAL_DATA");
-       
       }
       //  console.log("response create user: " , response)
     } catch (e) {
@@ -83,14 +75,14 @@ class TaikhoanManager extends Component {
     // console.log('check data from child',data)
   };
 
-  handleDeleteUser = async (user) => {
+  handleDeleteXe = async (xe) => {
     try {
-      let res = await  deleteTaikhoan(user.id);
+      let res = await deleteKhachhang(xe.id);
       if (res && res.errcode !== 0) {
         alert(res.errMessage);
         toast.error("Xóa thất bại");
       } else {
-        await this. getAllTaikhoanReact();
+        await this.getAllkhachhangReact();
         toast.success("Xóa Thành công");
       }
       console.log(res);
@@ -106,11 +98,11 @@ class TaikhoanManager extends Component {
     });
   };
 
-  doEditUser = async (user) => {
+  doEditXe = async (user) => {
     try {
-      let res = await editTaikhoan(user);
+      let res = await editKhachhang(user);
       if (res && res.errcode === 0) {
-        await this. getAllTaikhoanReact();
+        await this.getAllkhachhangReact();
         toast.success("Sửa Thành công");
         this.setState({
           isOpenModalEditProduct: false,
@@ -123,13 +115,11 @@ class TaikhoanManager extends Component {
     }
   };
 
-
   handlePageChange(event, page) {
     this.setState({
       currentPage: page,
     });
   }
-  
 
   /**Life cycle
    * Run component:
@@ -139,24 +129,26 @@ class TaikhoanManager extends Component {
    */
 
   render() {
-    const { arrTaikhoan, currentPage, productsPerPage } = this.state;
+    const { arrkhachhang, currentPage, productsPerPage } = this.state;
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = arrTaikhoan.slice(indexOfFirstProduct, indexOfLastProduct);
+    const currentProducts = arrkhachhang.slice(
+      indexOfFirstProduct,
+      indexOfLastProduct
+    );
     return (
       <div className="hello">
-      
-         <ModalTaikhoan
+        <ModalKhachhang
           isOpen={this.state.isOpenModalCategories}
           toggleFromParent={this.toggleCategoriesModal}
-          createNewTaikhoan={this.createNewTaikhoan}
+          createNewXe={this.createNewXe}
         />
         {this.state.isOpenModalEditProduct && (
-          <ModalEditTaikhoan
+          <ModalEditKhachhang
             isOpen={this.state.isOpenModalEditProduct}
             toggleFromParent={this.toggleUserEditModal}
             currentUser={this.state.productEdit}
-            editUser={this.doEditUser}
+            editUser={this.doEditXe}
           />
         )}
 
@@ -165,35 +157,40 @@ class TaikhoanManager extends Component {
           <div className="col">
             <div className="col-md-12">
               <div className="f-index">
-                
                 <div className="tabular--wrapper">
                   <button
                     className=" btn btn-primary px-3"
                     onClick={() => this.handleAddCategories()}
                   >
-                  <i class="fas fa-box mr-2"></i>Thêm Tài khoản
+                    <i class="fas fa-box mr-2"></i>Thêm Khách hàng
                   </button>
-                  
-                  <h2 className="h2--title">Danh sách Tài khoản</h2>
+
+                  <h2 className="h2--title">Danh sách khách hàng</h2>
 
                   <div className="table-container">
                     <table>
                       <thead>
                         <tr>
                           <th>Số điện thoại</th>
-                          <th>Loại tài khoản</th>
+                          <th>Email</th>
+                          <th>Họ và tên</th>
+                          <th>Giới tính</th>
+                          <th>Địa chỉ</th>
+                          <th>Ngày sinh</th>
                           <th>Hành động</th>
                         </tr>
                       </thead>
                       <tbody>
                         {currentProducts &&
                           currentProducts.map((item, index) => {
-                    
                             return (
                               <tr key={index}>
                                 <td>{item.sdt}</td>
-                                <td>{item.idmaquyenData.tenquyen}</td>
-  
+                                <td>{item.email}</td>
+                                <td>{item.hoten}</td>
+                                <td>{item.diachi}</td>
+                                <td>{item.gioitinh}</td>
+                                <td>{item.ngaysinh}</td>
                                 <td>
                                   <button
                                     className="btn-edit"
@@ -209,7 +206,7 @@ class TaikhoanManager extends Component {
                                   <button
                                     className="btn-del"
                                     onClick={() => {
-                                      this.handleDeleteUser(item);
+                                      this.handleDeleteXe(item);
                                     }}
                                   >
                                     <i className="fa-regular fa-trash-can"></i>
@@ -217,22 +214,20 @@ class TaikhoanManager extends Component {
                                 </td>
                               </tr>
                             );
-                                  
                           })}
                       </tbody>
                     </table>
                   </div>
                   <div className="phantrang">
-                  <Stack spacing={2}>
-                    <Pagination shape="rounded"
-                      count={Math.ceil(arrTaikhoan.length / productsPerPage)}
-                      page={currentPage}
-                      onChange={this.handlePageChange}
-                    />
-                  </Stack>
-
+                    <Stack spacing={2}>
+                      <Pagination
+                        shape="rounded"
+                        count={Math.ceil(arrkhachhang.length / productsPerPage)}
+                        page={currentPage}
+                        onChange={this.handlePageChange}
+                      />
+                    </Stack>
                   </div>
-                  
                 </div>
               </div>
             </div>
@@ -243,4 +238,4 @@ class TaikhoanManager extends Component {
   }
 }
 
-export default TaikhoanManager;
+export default KhachhangManager;

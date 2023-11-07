@@ -55,6 +55,16 @@ const getAllTaikhoan = (inputId) => {
     //teamplate String
     return axios.get(`/api/get-all-taikhoan?id=${inputId}`)
 }
+
+
+
+
+
+const getAllTaikhoannhanvien = (inputId) => {
+    //teamplate String
+    return axios.get(`/api/get-all-taikhoannhanvien?id=${inputId}`)
+}
+
 const createNewTaikhoan = (data) => {
     return axios.post('/api/create-new-taikhoan', data)
 }
@@ -93,6 +103,55 @@ const editQuyenhan = (inputData) => {
 }
 
 
+///call api cua khachhang
+
+
+const getAllKhachhang = (inputId) => {
+    //teamplate String
+    return axios.get(`/api/get-all-khachhang?id=${inputId}`)
+}
+const createNewKhachhang = (data) => {
+    return axios.post('/api/create-new-khachhang', data)
+}
+const deleteKhachhang = (userId) => {
+    //return axios.delete('/api/delete-user',{id:userId})
+    return axios.delete('/api/delete-khachhang', {
+        data: {
+            id: userId
+        }
+    })
+}
+const editKhachhang = (inputData) => {
+    return axios.put('/api/edit-khachhang', inputData)
+
+}
+
+
+//all api nhan vien 
+
+const getAllNhanvien = (inputId) => {
+    //teamplate String
+    return axios.get(`/api/get-all-nhanvien?id=${inputId}`)
+}
+const createNewNhanvien = (data) => {
+    return axios.post('/api/create-new-nhanvien', data)
+}
+const deleteNhanvien = (userId) => {
+    //return axios.delete('/api/delete-user',{id:userId})
+    return axios.delete('/api/delete-nhanvien', {
+        data: {
+            id: userId
+        }
+    })
+}
+const editNhanvien = (inputData) => {
+    return axios.put('/api/edit-nhanvien', inputData)
+
+}
+
+
+
+
 
 
 
@@ -121,6 +180,15 @@ export {
     createNewQuyenhan,
     deleteQuyenhan,
     editQuyenhan,
-    handleLoginFuta
+    handleLoginFuta,
+    getAllKhachhang,
+    deleteKhachhang,
+    createNewKhachhang,
+    editKhachhang,
+    getAllNhanvien,
+    createNewNhanvien,
+    deleteNhanvien,
+    editNhanvien,
+    getAllTaikhoannhanvien
 
 }

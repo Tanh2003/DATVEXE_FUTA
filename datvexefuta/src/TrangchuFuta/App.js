@@ -13,12 +13,16 @@ import DatXe from '../User/DatXe';
 import XeManager from '../Admin/CRUD_xe/XeManager';
 import QuyenAdmin from '../Admin/QuyenAdmin';
 import TaikhoanAdmin from "../Admin/TaikhoanAdmin";
+import khachhangAdmin from "../Admin/khachhangAdmin";
+import NhanvienAdmin from "../Admin/NhanvienAdmin";
 
 import RegisterFuta from "../Dangnhap_DangKy/RegisterFuta";
 function App() {
   return (
     <Router>
       <Switch>
+      <Route path="/admin/nhanvien" exact component={NhanvienAdmin} />
+      <Route path="/admin/khachhang" exact component={khachhangAdmin} />
       <Route path="/admin/taikhoan" exact component={TaikhoanAdmin} />
         <Route path="/admin/xe" exact component={IndexAdmin} />
         <Route path="/admin/quyen" component={QuyenAdmin} />
