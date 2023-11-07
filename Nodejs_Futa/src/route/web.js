@@ -11,8 +11,6 @@ import khachhangController from "../controllers/khachhangController";
 import VexeController from "../controllers/vexeController";
 
  import QuyenhanController from "../controllers/quyenhanController";
- import ChuyenXeController from "../controllers/chuyenxeController";
-
 
 let router = express.Router();
 
@@ -83,19 +81,8 @@ router.post("/api/create-new-vexe", VexeController.handleCreateNewvexe);
 router.put("/api/edit-vexe", VexeController.handleEditvexe);
 router.delete("/api/delete-vexe", VexeController.handleDeletevexe);
 
-//api cua chuyenxe 
 
-router.get("/api/get-all-chuyenxe", ChuyenXeController.handleGetallChuyenXe);
-router.post("/api/create-new-chuyenxe", ChuyenXeController.handleCreateNewChuyenXe);
-router.put("/api/edit-chuyenxe", ChuyenXeController.handleEditChuyenXe);
-router.delete("/api/delete-chuyenxe", ChuyenXeController.handleDeleteChuyenXe);
 
-//api cua chuyenxe 
-
-router.get("/api/get-all-nhanvien", NhanVienController.handleGetallNhanVien);
-router.post("/api/create-new-nhanvien", NhanVienController.handleCreateNewNhanVien);
-router.put("/api/edit-nhanvien", NhanVienController.handleEditNhanVien);
-router.delete("/api/delete-nhanvien", NhanVienController.handleDeleteNhanVien);
 
 
 // api cua quyen han 
