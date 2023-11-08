@@ -35,8 +35,10 @@
     cursor: pointer;
     margin: 0 auto;
   }
-  .custom-btn{
-    margin-top: 15px;
+  .custom-btn2{
+    margin-top: 20px;
+    margin-left: 45%;
+    margin-bottom: 25px;
   }
   /* Hiển thị nút đặt vé khi ghế đã được chọn */
   button[disabled] {
@@ -52,13 +54,9 @@
     background: rgb(201, 201, 201, 0.1);
     border: 1px solid #ccc;
     border-radius: 5px;
-    
     margin-left: 20px;
     padding-left: 30px;
     padding-right: 30px;
-    margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 20px;
 }
 .custom-dv{
     width: 100%;
@@ -198,4 +196,55 @@
   border-radius: 4px;
   box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 16px;
+}
+
+/* Booking.css */
+
+.table-container2 {
+  display: block; /* Để bảng nằm cạnh nhau */
+  width: auto;
+  height: auto;
+  padding: 20px; /* Thêm lề nếu cần thiết */
+  border: 1px solid #ccc; /* Thêm viền để phân biệt bảng */
+  margin-right: 10px; /* Khoảng cách giữa các bảng */
+  box-sizing: border-box; /* Để tính cả viền trong chiều rộng */
+  border-radius: 20px;
+}
+
+.dsmain{
+  display: flex;
+  margin-top: 20px;
+  margin-left: 12%;
+}
+
+.dstable{
+  min-width: 25%;
+}
+.custom-box3{
+  width: auto;
+  height: auto;
+  margin-top: 30px;
+  padding-bottom: 50px;
+  text-align: center;
+  margin-left: 1px;
+  position: relative; /* Thêm position: relative cho .login-box */
+  z-index: 2; /* Đặt z-index để đè lên header, nhưng không đè lên footer */
+  display: flex; /* Sử dụng Flexbox cho .login-box */
+  justify-content: space-between; /* Chia cách các phần tử bên trong .login-box */
+  background: rgb(201, 201, 201, 0.3);
+}
+
+input[type=text3]{
+  width: 200px;
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-right: 25px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.title3{
+  font-size: 23px;
+  color: orange;
+  font-weight: bold;
+  padding-top: 20px;
 }
