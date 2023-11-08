@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     
     giave:DataTypes.FLOAT,
     soghe:DataTypes.STRING,
+    sove:DataTypes.INTEGER,
     machuyen:DataTypes.INTEGER,
     manv:DataTypes.INTEGER,
     makh:DataTypes.INTEGER,

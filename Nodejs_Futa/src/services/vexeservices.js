@@ -28,8 +28,8 @@ let Createvexe = (data) => {
       await db.vexe.create({
         makh: data.makh,
         giave: data.giave,
-    
         soghe: data.soghe,
+        sove:data.sove,
         manv: data.manv,
         machuyen: data.machuyen,
         maxe: data.maxe,
@@ -86,7 +86,7 @@ let updatevexeData = (data) => {
         vexe.makh = data.makh;
         vexe.giave = data.giave;
         vexe.soghe = data.soghe;
-       
+        vexe.sove=data.sove
         vexe.manv = data.manv;
         vexe.machuyen = data.machuyen;
         vexe.thoigianbatdau = data.thoigianbatdau;

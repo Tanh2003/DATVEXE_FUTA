@@ -21,6 +21,10 @@ export const DashBoard = () => {
   const handleManageXe = () => {
     history.replace("/admin/xe");
   };
+  const handleManageChuyenxe = () => {
+    history.replace("/admin/chuyenxe");
+  };
+ 
 
   const handleManageTaikhoan = () => {
 
@@ -37,25 +41,29 @@ export const DashBoard = () => {
             <span>Trang chủ </span>
           </li>
           <li onClick={() => handleManageTaikhoan()}>
-            <i className="fas fa-mobile-alt"></i>
+          <i className="fas fa-users mr-2"></i>
             <span>Quản lý tài khoản</span>
           </li>
           <li onClick={() => handleManageNhanvien()}>
-            <i className="fas fa-mobile-alt"></i>
+          <i className="fas fa-users-cog mr-2"></i>
             <span>Quản lý nhân viên</span>
           </li>
           <li onClick={() => handleManagekhachhang()}>
-            <i className="fas fa-user"></i>
+          <i className="fas fa-user-tie mr-2"></i>
             <span>Quản lý khách hàng </span>
           </li>
           <li onClick={() => handleManageQuyen()}>
-            <i className="fas fa-mobile-alt"></i>
+          <i className="fas fa-flag-checkered mr-2"></i>
             <span>Quản lý Quyền </span>
           </li>
 
           <li onClick={() => handleManageXe()}>
-            <i className="fas fa-mobile-alt"></i>
+          <i className="fas fa-bus mr-2"></i>
             <span>Quản lý Xe</span>
+          </li>
+          <li onClick={() => handleManageChuyenxe()}>
+          <i className="fas fa-shuttle-van mr-2"></i>
+            <span>Quản lý Chuyến Xe</span>
           </li>
           
 

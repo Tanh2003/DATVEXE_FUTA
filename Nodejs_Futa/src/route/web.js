@@ -9,6 +9,9 @@ import taikhoanController from "../controllers/taikhoanController";
 import khachhangController from "../controllers/khachhangController";
 import nhanvienController from "../controllers/nhanvienController";
 import VexeController from "../controllers/vexeController";
+import ChuyenxeController from "../controllers/chuyenxeController";
+
+
 
  import QuyenhanController from "../controllers/quyenhanController";
 
@@ -98,6 +101,15 @@ router.get("/api/get-all-vexe", VexeController.handleGetallvexe);
 router.post("/api/create-new-vexe", VexeController.handleCreateNewvexe);
 router.put("/api/edit-vexe", VexeController.handleEditvexe);
 router.delete("/api/delete-vexe", VexeController.handleDeletevexe);
+
+
+//api cua chuyen xe
+router.get("/api/get-all-chuyenxe", ChuyenxeController.handleGetallchuyenxe);
+router.post("/api/create-new-chuyenxe", ChuyenxeController.handleCreateNewchuyenxe);
+router.put("/api/edit-chuyenxe", ChuyenxeController.handleEditchuyenxe);
+router.delete("/api/delete-chuyenxe", ChuyenxeController.handleDeletechuyenxe);
+
+
 
 
 

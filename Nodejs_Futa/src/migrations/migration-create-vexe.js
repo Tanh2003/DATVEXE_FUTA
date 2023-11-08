@@ -27,6 +27,9 @@ module.exports = {
             machuyen: {
                 type: Sequelize.INTEGER
             },
+            sove:{
+                type: Sequelize.INTEGER
+            },
             thoigianbatdau: {
                 type: Sequelize.DATE
             },

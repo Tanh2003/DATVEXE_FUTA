@@ -47,6 +47,63 @@ const editXe = (inputData) => {
 
 }
 
+
+
+// call api cua chuyen xe
+
+const getAllChuyenxe = (inputId) => {
+    //teamplate String
+    return axios.get(`/api/get-all-chuyenxe?id=${inputId}`)
+}
+const createNewChuyenxe = (data) => {
+    return axios.post('/api/create-new-chuyenxe', data)
+}
+const deleteChuyenxe = (userId) => {
+    //return axios.delete('/api/delete-user',{id:userId})
+    return axios.delete('/api/delete-chuyenxe', {
+        data: {
+            id: userId
+        }
+    })
+}
+const editChuyenxe = (inputData) => {
+    return axios.put('/api/edit-chuyenxe', inputData)
+
+}
+
+// call api cua vexxe
+
+const getAllVexe = (inputId) => {
+    //teamplate String
+    return axios.get(`/api/get-all-vexe?id=${inputId}`)
+}
+const createNewVexe = (data) => {
+    return axios.post('/api/create-new-vexe', data)
+}
+const deleteVexe = (userId) => {
+    //return axios.delete('/api/delete-user',{id:userId})
+    return axios.delete('/api/delete-vexe', {
+        data: {
+            id: userId
+        }
+    })
+}
+const editVexe = (inputData) => {
+    return axios.put('/api/edit-vexe', inputData)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // all api taikhoan 
 const handleLoginFuta = (sdtne, matkhaune) => {
     return axios.post('/api/login/futa',{ sdt:sdtne, matkhau:matkhaune });
@@ -189,6 +246,14 @@ export {
     createNewNhanvien,
     deleteNhanvien,
     editNhanvien,
-    getAllTaikhoannhanvien
+    getAllTaikhoannhanvien,
+    getAllChuyenxe,
+    createNewChuyenxe,
+    deleteChuyenxe,
+    editChuyenxe,
+    getAllVexe,
+    createNewVexe,
+    deleteVexe,
+    editVexe
 
 }
