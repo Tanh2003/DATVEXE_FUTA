@@ -12,6 +12,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { Link } from 'react-router-dom';
+
 function TimKiem() {
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -114,6 +116,7 @@ function TimKiem() {
       return (
         chuyenDi.diemDi === diemDi &&
         chuyenDi.diemDen === diemDen 
+
       );
     });
 
@@ -212,6 +215,8 @@ function TimKiem() {
                   Chuyến xe {chuyen.id} - Điểm đi: {chuyen.diemDi}, Điểm đến:{" "}
                   {chuyen.diemDen}, Ngày đi: {chuyen.ngayDi}, Số vé:{" "}
                   {chuyen.soVe}, Loại vé: {chuyen.loaiVe}
+                  <Link to="datxe"> <button>Chi Tiết</button></Link>
+                  
                 </li>
               ))}
             </ul>
