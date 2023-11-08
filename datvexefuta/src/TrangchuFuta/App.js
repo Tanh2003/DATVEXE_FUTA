@@ -22,6 +22,7 @@ function App() {
   return (
     <Router>
       <Switch>
+      
       <Route path="/admin/chuyenxe" exact component={ChuyenxeAdmin} />
       <Route path="/admin/nhanvien" exact component={NhanvienAdmin} />
       <Route path="/admin/khachhang" exact component={khachhangAdmin} />
@@ -33,9 +34,12 @@ function App() {
         <Route path="/infomation" component={InformationFuta} />
        
        
-        <Route path="/" component={TrangChu} />
+        
         <Route path="/lienhe" exact component={LienHe} />
-        <Route path="/datxe" component={DatXe} />
+        <Route path="/datxe/:id" component={DatXe} />
+
+        // phải để dấu "/" ở cuối route
+        <Route path="/" component={TrangChu} />
       </Switch>
       <ToastContainer
         position="bottom-right"

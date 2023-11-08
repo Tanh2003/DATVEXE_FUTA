@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
- 
+      TTchuyenxe.belongsTo(models.chuyenxe, { foreignKey: 'machuyen', targetKey: 'id', as: 'idmachuyenData' })
+    
     }
   };
   TTchuyenxe.init({
@@ -19,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     machuyen:DataTypes.INTEGER,
     ngay:DataTypes.DATE,
     soluongve:DataTypes.INTEGER,
+    thoigian:DataTypes.TIME
   }, {
     sequelize,
     modelName: 'TTchuyenxe',

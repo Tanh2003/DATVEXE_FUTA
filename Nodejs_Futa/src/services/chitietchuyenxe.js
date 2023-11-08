@@ -80,7 +80,7 @@ let updatechitietchuyenxeData = (data) => {
       });
       if (chitietchuyenxe) {
         chitietchuyenxe.idttchuyenxe=data.idttchuyenxe,
-       chitietchuyenxe.mave=data.ngay,
+       chitietchuyenxe.mave=data.mave,
 
         await chitietchuyenxe.save();
 

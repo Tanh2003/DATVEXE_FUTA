@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
- 
+      chuyenxe.hasMany(models.TTchuyenxe, { foreignKey: 'machuyen', as: 'idmachuyenData' })
+      
     }
   };
   chuyenxe.init({

@@ -20,6 +20,10 @@ module.exports = {
             soluongve: {
                 type: Sequelize.INTEGER
             },
+            thoigian: {
+                type: Sequelize.TIME
+            },
+           
            
             createdAt: {
                 allowNull: false,

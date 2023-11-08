@@ -7,11 +7,26 @@ let getAllchuyenxe = (chuyenxeid) => {
         chuyenxe = db.chuyenxe.findAll({
           // ẩn mật khẩu
           order: [["createdAt", "DESC"]],
+          include: [{
+            model: db.TTchuyenxe,
+            as: 'idmachuyenData',
+            attributes: ['thoigian','soluongve','ngay' ],
+        }, ],
+        raw: true,
+        nest: true,
         });
+        
       }
       if (chuyenxeid && chuyenxeid !== "ALL") {
         chuyenxe = await db.chuyenxe.findOne({
           where: { id: chuyenxeid }, //  userId laf cais tham so truyen vao
+          include: [{
+            model: db.TTchuyenxe,
+            as: 'idmachuyenData',
+            attributes: ['thoigian','soluongve','ngay' ],
+        }, ],
+        raw: true,
+        nest: true,
           // ẩn mật khẩu
         });
       }

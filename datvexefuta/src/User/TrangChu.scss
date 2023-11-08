@@ -145,3 +145,44 @@ button[type="submit"] {
   .title b {
     font-size: 30px;
   }
+
+
+  .danh-sach-chuyen-xe {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .danh-sach-chuyen-xe h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .danh-sach-chuyen-xe ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .danh-sach-chuyen-xe li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Các thuộc tính CSS khác tùy theo thiết kế bạn muốn áp dụng */
+  .danh-sach-chuyen-xe button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .danh-sach-chuyen-xe button:hover {
+    background-color: #0056b3;
+  }

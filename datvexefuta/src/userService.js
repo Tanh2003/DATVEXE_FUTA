@@ -93,7 +93,49 @@ const editVexe = (inputData) => {
 
 }
 
+// call api chi tiết chuyến xe
 
+const getAllChitietchuyenxe = (inputId) => {
+    //teamplate String
+    return axios.get(`/api/get-all-Chitietchuyenxe?id=${inputId}`)
+}
+const createNewChitietchuyenxe = (data) => {
+    return axios.post('/api/create-new-chitietchuyenxe', data)
+}
+const deleteChitietchuyenxe = (userId) => {
+    //return axios.delete('/api/delete-user',{id:userId})
+    return axios.delete('/api/delete-chitietchuyenxe', {
+        data: {
+            id: userId
+        }
+    })
+}
+const editChitietchuyenxe = (inputData) => {
+    return axios.put('/api/edit-Chitietchuyenxe', inputData)
+
+}
+
+// call api thong tin chuyen xe
+
+const getAllTTchuyenxe = (inputId) => {
+    //teamplate String
+    return axios.get(`/api/get-all-TTchuyenxe?id=${inputId}`)
+}
+const createNewTTchuyenxe = (data) => {
+    return axios.post('/api/create-new-TTchuyenxe', data)
+}
+const deleteTTchuyenxe = (userId) => {
+    //return axios.delete('/api/delete-user',{id:userId})
+    return axios.delete('/api/delete-TTchuyenxe', {
+        data: {
+            id: userId
+        }
+    })
+}
+const editTTchuyenxe = (inputData) => {
+    return axios.put('/api/edit-TTchuyenxe', inputData)
+
+}
 
 
 
@@ -261,6 +303,14 @@ export {
     createNewVexe,
     deleteVexe,
     editVexe,
+    getAllChitietchuyenxe,
+    createNewChitietchuyenxe,
+    deleteChitietchuyenxe,
+    editChitietchuyenxe,
+    getAllTTchuyenxe,
+    createNewTTchuyenxe,
+    deleteTTchuyenxe ,
+    editTTchuyenxe
 
 
 }

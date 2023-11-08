@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import Slider from "react-slick";
 import Select from "react-select";
-import {
-  getAllChuyenxe,
-} from "../userService";
-
+import { getAllChuyenxe, getAllTTchuyenxe } from "../userService";
+import { Link } from "react-router-dom";
 import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
 import "./TrangChu.scss";
@@ -18,30 +16,35 @@ import "slick-carousel/slick/slick-theme.css";
 function TimKiem() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [danhsachchuyenxe, setdanhsachchuyenxe] = useState({});
-
-
+  const [thongtinchuyenxe, setthongtinchuyenxe] = useState({});
 
   useEffect(() => {
     const getAllTaikhoanReact = async () => {
-      let response = await getAllChuyenxe("ALL");   
+      let response = await getAllChuyenxe("ALL");
       if (response && response.errcode === 0) {
-       
         setdanhsachchuyenxe(response.chuyenxe);
       }
     };
-  
+
     getAllTaikhoanReact();
   }, []);
-  
 
+  useEffect(() => {
+    const getAllthongtinchuyenxe = async () => {
+      let response = await getAllTTchuyenxe("ALL");
+      if (response && response.errcode === 0) {
+        setthongtinchuyenxe(response.TTchuyenxe);
+      }
+    };
 
+    getAllthongtinchuyenxe();
+  }, []);
 
   const [selectedOption, setSelectedOption] = useState(null);
   const handleChange = (selected) => {
     setSelectedOption(selected);
   };
 
-  
   const [selectedOption2, setSelectedOption2] = useState(null);
   const handleChange2 = (selected) => {
     setSelectedOption2(selected);
@@ -73,7 +76,6 @@ function TimKiem() {
   };
   const [chuyenXe, setChuyenXe] = useState([]);
 
-  
   const handleTimVe = () => {
     // Lấy giá trị điểm đi và điểm đến từ selectedOption và selectedOption2
     const diemDi = selectedOption.value; // Sử dụng optional chaining để xử lý trường hợp giá trị null
@@ -81,18 +83,15 @@ function TimKiem() {
     const ngayDi = selectedDate;
 
     console.log("diemDi:", diemDi);
-  console.log("diemDen:", diemDen);
-  console.log("ngayDi:", ngayDi);
-  console.log("hello",danhsachchuyenxe);
+    console.log("diemDen:", diemDen);
+    console.log("ngayDi:", ngayDi);
+    console.log("hello", danhsachchuyenxe);
     // Lọc danh sách chuyến xe dựa trên các thông tin đã nhập
     const danhSachChuyenXeDaLoc = danhsachchuyenxe.filter((chuyenDi) => {
-      return (
-        chuyenDi.diemdi === diemDi &&
-        chuyenDi.diemden === diemDen 
-      );
+      return chuyenDi.diemdi === diemDi && chuyenDi.diemden === diemDen;
     });
-    
-    console.log("chuyenxe da loc",danhSachChuyenXeDaLoc);
+
+    console.log("chuyenxe da loc", danhSachChuyenXeDaLoc);
 
     // Cập nhật danh sách chuyến xe trong trạng thái chuyenXe
     setChuyenXe(danhSachChuyenXeDaLoc);
@@ -130,14 +129,18 @@ function TimKiem() {
                   Điểm đi
                 </label>
                 <Select
-  value={selectedOption}
-  onChange={handleChange}
-  options={danhsachchuyenxe && danhsachchuyenxe.length > 0 ? danhsachchuyenxe.map(item => ({
-    value: item.diemdi, // Replace with the correct key for the value
-    label: item.diemdi, // Replace with the correct key for the label
-  })) : []}
-  className="customselect"
-/>
+                  value={selectedOption}
+                  onChange={handleChange}
+                  options={
+                    danhsachchuyenxe && danhsachchuyenxe.length > 0
+                      ? danhsachchuyenxe.map((item) => ({
+                          value: item.diemdi, // Replace with the correct key for the value
+                          label: item.diemdi, // Replace with the correct key for the label
+                        }))
+                      : []
+                  }
+                  className="customselect"
+                />
               </div>
             </div>
             <div className="col">
@@ -146,15 +149,18 @@ function TimKiem() {
                   Điểm đến
                 </label>
                 <Select
-  value={selectedOption2}
-  onChange={handleChange2}
-  options={danhsachchuyenxe && danhsachchuyenxe.length > 0 ? danhsachchuyenxe.map(item => ({
-    value: item.diemden, // Replace with the correct key for the value
-    label: item.diemden, // Replace with the correct key for the label
-  })) : []}
-  className="customselect"
-/>
-
+                  value={selectedOption2}
+                  onChange={handleChange2}
+                  options={
+                    danhsachchuyenxe && danhsachchuyenxe.length > 0
+                      ? danhsachchuyenxe.map((item) => ({
+                          value: item.diemden, // Replace with the correct key for the value
+                          label: item.diemden, // Replace with the correct key for the label
+                        }))
+                      : []
+                  }
+                  className="customselect"
+                />
               </div>
             </div>
             <div className="col">
@@ -183,17 +189,25 @@ function TimKiem() {
               </div>
             </div>
           </div>
-          <button type="submit"onClick={handleTimVe}>Tìm Vé</button>
+          <button type="submit" onClick={handleTimVe}>
+            Tìm Vé
+          </button>
         </div>
-        {chuyenXe.length> 0 && (
+        {chuyenXe.length > 0 && (
           <div className="danh-sach-chuyen-xe">
             <h2>Danh sách chuyến xe:</h2>
             <ul>
               {chuyenXe.map((item, index) => (
                 <li key={index}>
-                  Chuyến xe {item.tenchuyen} - Điểm đi: {item.diemdi}, Điểm đến:{" "}
-                  {item.diemden}, Ngày đi: {item.dodai}, Số vé:{" "}
+                  Chuyến xe {item.tenchuyen} - Điểm đi: {item.diemdi}, Điểm đến:
+                  {item.diemden},
+                  Ngày đi: {item.idmachuyenData.thoigian}, Số vé:
+                  {item.idmachuyenData.soluongve},giá:
                   {item.gia}
+                  <Link to={`/datxe/${item.id}`}>
+                    {" "}
+                    <button>Chi Tiết</button>
+                  </Link>
                 </li>
               ))}
             </ul>

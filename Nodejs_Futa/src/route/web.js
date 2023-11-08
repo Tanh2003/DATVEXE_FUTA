@@ -11,7 +11,9 @@ import nhanvienController from "../controllers/nhanvienController";
 import VexeController from "../controllers/vexeController";
 import ChuyenxeController from "../controllers/chuyenxeController";
 
+import TTchuyenxeController from "../controllers/ttchuyenxe.Controller";
 
+import ChitietchuyenxeController from "../controllers/chitietchuyenxeController";
 
  import QuyenhanController from "../controllers/quyenhanController";
 
@@ -110,6 +112,22 @@ router.post("/api/create-new-chuyenxe", ChuyenxeController.handleCreateNewchuyen
 router.put("/api/edit-chuyenxe", ChuyenxeController.handleEditchuyenxe);
 router.delete("/api/delete-chuyenxe", ChuyenxeController.handleDeletechuyenxe);
 
+
+
+//api cua thong tin chuyen xe
+router.get("/api/get-all-TTchuyenxe", TTchuyenxeController.handleGetallTTchuyenxe);
+router.post("/api/create-new-TTchuyenxe", TTchuyenxeController.handleCreateNewTTchuyenxe);
+router.put("/api/edit-TTchuyenxe", TTchuyenxeController.handleEditTTchuyenxe);
+router.delete("/api/delete-TTchuyenxe", TTchuyenxeController.handleDeleteTTchuyenxe);
+
+
+
+//api cua chitietchuyenxe
+
+router.get("/api/get-all-Chitietchuyenxe", ChitietchuyenxeController.handleGetallchitietchuyenxe);
+router.post("/api/create-new-Chitietchuyenxe", ChitietchuyenxeController.handleCreateNewchitietchuyenxe);
+router.put("/api/edit-Chitietchuyenxe", ChitietchuyenxeController.handleEditchitietchuyenxe);
+router.delete("/api/delete-Chitietchuyenxe", ChitietchuyenxeController.handleDeletechitietchuyenxe);
 
 
 

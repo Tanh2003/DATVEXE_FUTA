@@ -29,6 +29,7 @@ let CreateTTchuyenxe = (data) => {
         machuyen:data.machuyen,
         ngay:data.ngay,
         soluongve:data.soluongve,
+        thoigian:data.thoigian
       });
 
       resolve({
