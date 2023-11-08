@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import "./LoginFuta.scss";
 import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
-import {handleLoginFuta} from "../userService";
+import {handleLoginFuta,getAllThongtintaikhoan} from "../userService";
 import { Link,useHistory,Redirect } from "react-router-dom";
 
 function LoginFuta() { // Đặt tên thành phần React là Login thay vì login
@@ -13,6 +13,7 @@ function LoginFuta() { // Đặt tên thành phần React là Login thay vì log
 
     const [sdt, setsdt] = useState('');
     const [matkhau, setmatkhau] = useState('');
+   
     const [errMessage, setErrMessage] = useState('');
     const handleOnChangeUsername = (event) => {
         setsdt(event.target.value);
@@ -22,37 +23,43 @@ function LoginFuta() { // Đặt tên thành phần React là Login thay vì log
         setmatkhau(event.target.value);
     }
     const handleLoginne = async () => {
-      setErrMessage('');
-    
-      try {
+        setErrMessage('');
+      
+        try {
           let data = await handleLoginFuta(sdt,matkhau);
           if (data && data.errcode !== 0) {
-              setErrMessage(data.message);
+            setErrMessage(data.message);
           }
           if (data && data.errcode === 0) {
-    
-            // localStorage.setItem('user', JSON.stringify(data.user));
            
-            // if(data.user.roleId=="R1"){
-            //   history.replace("/admin/user"); // Sử dụng replace thay vì push
-            //   window.location.reload(); // Tải lại trang
-            // }else{
-            //   history.replace("/"); // Sử dụng replace thay vì push
-            //   window.location.reload(); // Tải lại trang
+            localStorage.setItem('taikhoan', JSON.stringify(data.taikhoan));
+            // let response = await getAllThongtintaikhoan(data.taikhoan.sdt);
+            // if (response && response.errcode == 0) {
+               
+            //   localStorage.setItem('arrtaikhoan', JSON.stringify(response.info.sdt));
             // }
-          history.replace("/admin/xe"); // Sử dụng replace thay vì push
             
-              console.log("login succeeds");
+
+           
+            if (data.taikhoan.maquyen === 2) {
+              history.replace("/admin/quyen");
+              window.location.reload();
+            } else {
+              history.replace("/");
+              window.location.reload();
+            }
+            console.log("login succeeds");
           }
-      } catch (error) {
+        } catch (error) {
           if (error.response) {
-              if (error.response.data) {
-                  setErrMessage(error.response.data.message);
-              }
+            if (error.response.data) {
+              setErrMessage(error.response.data.message);
+            }
           }
           console.log("Ntanh", error.response);
-      }
-    }
+        }
+      };
+   
     const [isShowPassword, setIsShowPassword] = useState(false);
     const handleShowHidePassword = () => {
       setIsShowPassword(!isShowPassword);

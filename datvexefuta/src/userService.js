@@ -115,6 +115,10 @@ const getAllTaikhoan = (inputId) => {
 
 
 
+const getAllThongtintaikhoan = (inputId) => {
+    //teamplate String
+    return axios.get(`/api/get-all-thongtintaikhoan?id=${inputId}`)
+}
 
 
 const getAllTaikhoannhanvien = (inputId) => {
@@ -163,9 +167,10 @@ const editQuyenhan = (inputData) => {
 ///call api cua khachhang
 
 
-const getAllKhachhang = (inputId) => {
+const getAllKhachhang = (inputId,info) => {
     //teamplate String
-    return axios.get(`/api/get-all-khachhang?id=${inputId}`)
+    return axios.get(`/api/get-all-khachhang?id=${inputId}&info=${info}`);
+
 }
 const createNewKhachhang = (data) => {
     return axios.post('/api/create-new-khachhang', data)
@@ -230,6 +235,7 @@ export {
     deleteXe,
     editXe,
     getAllTaikhoan,
+    getAllThongtintaikhoan,
     createNewTaikhoan,
     deleteTaikhoan,
     editTaikhoan,
@@ -254,6 +260,7 @@ export {
     getAllVexe,
     createNewVexe,
     deleteVexe,
-    editVexe
+    editVexe,
+
 
 }

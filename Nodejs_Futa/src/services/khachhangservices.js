@@ -51,7 +51,7 @@ let CreateNewkhachhang=(data)=>{
                    ngaysinh:data.ngaysinh,
                    gioitinh:data.gioitinh,
                    email:data.email,
-                   matk:data.matk,
+                 
                
                 });
                 resolve({

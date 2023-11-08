@@ -48,6 +48,7 @@ let initWebRouters = (app) => {
   router.post("/api/login/futa", taikhoanController.handleLogin);
   router.get("/api/get-all-taikhoan", taikhoanController.handleGetAlltaikhoan);
   router.get("/api/get-all-taikhoannhanvien", taikhoanController.laytatcataikhoannhanvien);
+  router.get("/api/get-all-thongtintaikhoan", taikhoanController.laythongtintaikhoan);
   router.post(
     "/api/create-new-taikhoan",
     taikhoanController.handleCreateNewtaikhoan

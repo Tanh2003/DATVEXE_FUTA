@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             taikhoan.belongsTo(models.quyenhan, { foreignKey: 'maquyen', targetKey: 'id', as: 'idmaquyenData' })
             taikhoan.hasOne(models.nhanvien, { foreignKey: 'matk', as: 'idmatkData' })
+           
+            
         }
     };
     taikhoan.init({

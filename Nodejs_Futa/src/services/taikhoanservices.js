@@ -1,74 +1,56 @@
-import bcryptjs from 'bcryptjs';
+// import bcryptjs from 'bcryptjs';
+var bcrypt = require('bcryptjs');
 import db from "../models/index";
+import khachhang from "../models/khachhang";
+
+const hashtaikhoanmatkhau = async (matkhau) => {
+  const salt = await bcrypt.genSalt(10);
+  const hashmatkhau = bcrypt.hashSync(matkhau, salt);
+  return hashmatkhau;
+};
+
+const handletaikhoanLogin = async (sdt, matkhau) => {
+  let taikhoanData = {};
+
+  try {
+    let isExist = await checktaikhoansdt(sdt);
+    if (isExist) {
+      let taikhoan = await db.taikhoan.findOne({
+        attributes: ['sdt','matkhau','maquyen'],
+        where: { sdt: sdt },
+        raw: true,
+      });
+
+      if (taikhoan) {
+        let check = bcrypt.compareSync(matkhau, taikhoan.matkhau);
 
 
 
-
-
-let hashtaikhoanmatkhau =(matkhau)=>{
-    
-    return new Promise(async(resolve,reject)=>{
-        const salt = await bcryptjs.genSalt(10);
-      try{
-        let hashmatkhau = await bcryptjs.hashSync(matkhau,salt);
-        resolve(hashmatkhau);
-        
-      }catch(e){
-        reject(e);
-      
+        if (check) {
+          taikhoanData.errcode = 0;
+          taikhoanData.errMessage = "oke";
+          delete taikhoan.matkhau;
+          taikhoanData.taikhoan = taikhoan;
+        } else {
+          taikhoanData.errcode = 3;
+          taikhoanData.errMessage = "Mật khẩu sai";
+        }
+      } else {
+        taikhoanData.errcode = 2;
+        taikhoanData.errMessage = "Người dùng không tồn tại";
       }
-    });
+    } else {
+      taikhoanData.errcode = 1;
+      taikhoanData.errMessage = "sdt không tồn tại vui lòng đăng kí hoặc kiểm tra lại";
     }
 
-let handletaikhoanLogin =(sdt,matkhau)=>{
-    return new Promise(async(resolve,reject)=>{
-        try {
-            let taikhoanData={};
-            let isExist=await checktaikhoansdt(sdt);
-            if(isExist){
-                //taikhoan allready exist
-               
-                let taikhoan =await db.taikhoan.findOne(
-                    {
-                        attributes:['sdt','matkhau','maquyen'],//  chỉ hiện sdt, roleid
-                        where:{sdt:sdt},
-                        raw:true,// xóa passwword
-                    }
-                );
-                if(taikhoan){
-                     //compare matkhau
-                     let check =await bcryptjs.compareSync(matkhau,taikhoan.matkhau);
-                     if(check){
-                        taikhoanData.errcode=0,
-                        taikhoanData.errMessage="oke";
-                        delete taikhoan.matkhau;// xóa passwword khỏi api khỏi lo bị hack
-                        taikhoanData.taikhoan=taikhoan;
+    return taikhoanData;
+  } catch (e) {
+    // Xử lý lỗi tại đây nếu có
+    throw e;
+  }
+};
 
-                     }else{
-                        taikhoanData.errcode=3;
-                        taikhoanData.errMessage="Mật khẩu sai";
-                     }
-                    
-
-                }else{
-                    taikhoanData.errcode=2;
-                    taikhoanData.errMessage="Người dùng không tồn tại"
-                }
-
-            }
-            else{
-                //return error
-                taikhoanData.errcode=1;
-                taikhoanData.errMessage="sdt không tồn tại vui lòng  đăng kí hoặc kiểm tra lại";
-            
-            }
-            resolve(taikhoanData)
-        } catch (e) {
-            reject(e)
-        }
-    })
- 
-}
 
 
 let checktaikhoansdt=(sdt)=>{
@@ -122,10 +104,12 @@ let getAlltaikhoans =(taikhoanId)=>{
                      // ẩn mật khẩu
                      attributes:{
                         exclude:['matkhau']
+
                     }
                 });
                
             }
+            
             resolve(taikhoans)
         } catch (e) {
             reject(e);
@@ -152,6 +136,29 @@ let getAlltaikhoanNhanvien =(taikhoanId)=>{
             }
            
             resolve(nhanvien)
+        } catch (e) {
+            reject(e);
+        }
+    })
+
+}
+let getAllinfotaikhoan =(taikhoanId)=>{
+    return new Promise(async(resolve,reject)=>{
+        try {
+            let info='';
+            if(taikhoanId!==""){
+                info=db.khachhang.findOne({
+
+                    where:{sdt:taikhoanId},
+                    // ẩn mật khẩu
+                    
+                   
+
+                })
+
+            }
+           
+            resolve(info)
         } catch (e) {
             reject(e);
         }
@@ -268,6 +275,7 @@ module.exports={
     CreateNewtaikhoan:CreateNewtaikhoan,
     deletetaikhoan:deletetaikhoan,
     updatetaikhoanData:updatetaikhoanData,
-    getAlltaikhoanNhanvien:getAlltaikhoanNhanvien
+    getAlltaikhoanNhanvien:getAlltaikhoanNhanvien,
+    getAllinfotaikhoan:getAllinfotaikhoan
 
 }

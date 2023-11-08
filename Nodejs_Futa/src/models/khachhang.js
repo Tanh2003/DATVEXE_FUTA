@@ -2,6 +2,7 @@
 const {
     Model
 } = require('sequelize');
+const taikhoan = require('./taikhoan');
 module.exports = (sequelize, DataTypes) => {
     class khachhang extends Model {
         /**
@@ -10,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-
+         
+           
         }
     };
     khachhang.init({
@@ -21,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
         ngaysinh: DataTypes.DATE,
         gioitinh: DataTypes.STRING,
         email: DataTypes.STRING,
-        matk:DataTypes.INTEGER,
        
 
     }, {

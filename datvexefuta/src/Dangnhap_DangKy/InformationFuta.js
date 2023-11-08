@@ -1,23 +1,32 @@
 import phone from "../image/phone.svg";
 import loginxe from "../image/TVC.svg";
 import logotext from "../image/logoText.svg";
-import React, { useState,} from 'react';
+import React, { useState, useEffect } from 'react';
 import "./LoginFuta.scss";
 import {toast} from "react-toastify";
 import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
-import {createNewTaikhoan} from "../userService";
+import {createNewKhachhang} from "../userService";
 import { Link,useHistory,Redirect } from "react-router-dom";
-
-function RegisterFuta() { // Đặt tên thành phần React là Login thay vì login
-  const history = useHistory();
+function InformationFuta() { // Đặt tên thành phần React là Login thay vì login
+    const history = useHistory();
     const [state, setState] = useState({
-        sdt:'',
-        matkhau:'',
-        nhaplaimatkhau:'',
-        maquyen:'3'
+       hoten:'',
+       email:'',
+       sdt:''
       });
-  
+      useEffect(() => {
+        // Lấy thông tin từ localStorage nếu có
+        const savedSdt = localStorage.getItem('sdt');
+      
+        // Nếu có thông tin, cập nhật trạng thái component
+        if (savedSdt) {
+          setState({
+           
+            sdt: savedSdt,
+          });
+        }
+      }, []);
   
 
       const handleOnChangeInput = (event, id) => {
@@ -27,37 +36,15 @@ function RegisterFuta() { // Đặt tên thành phần React là Login thay vì 
       };
       const checkValidInput = () => {
         let isValid = true;
-        const checkPass = state. nhaplaimatkhau;
-        const password = state.matkhau;
-        const phoneNumber = state.sdt;
-       
-        const arrInput=['sdt','matkhau','nhaplaimatkhau'];
+        const arrInput=['hoten','email','sdt'];
     
         for (let i = 0; i < arrInput.length; i++) {
           if (!state[arrInput[i]]) {
             isValid = false;
             alert('Vui lòng điền vào: ' + arrInput[i]);
             break;
-          } else if (checkPass !== state.matkhau) {
-            isValid = false;
-            alert('Mật khẩu nhập lại không giống vui lòng kiểm tra lại');
-            break;
           }
-           else if (
-            password.length < 8 ||
-            !/[A-Z]/.test(password) ||
-            !/[a-z]/.test(password) ||
-            !/\d/.test(password)
-          ) {
-            isValid = false;
-            alert('Mật khẩu yêu cầu ít nhất một chữ cái viết thường, ít nhất một chữ cái viết hoa, ít nhất một số, mật khẩu phải có ít nhất 8 ký tự');
-            break;
-          }
-          if (!/^\d{10}$/.test(phoneNumber)) {
-            isValid = false;
-            alert('Số điện thoại phải là số và phải có 10 số');
-            break;
-          }
+        
         }
         return isValid;
       };
@@ -67,12 +54,11 @@ function RegisterFuta() { // Đặt tên thành phần React là Login thay vì 
         const isValid = checkValidInput();
         if (isValid) {
           taomoinguoidung({
+            hoten:state.hoten,
+            email:state.email,
             sdt: state.sdt,
-            matkhau: state.matkhau,
-            maquyen:state.maquyen
+           
           });
-          localStorage.setItem('sdt', state.sdt);
-         
         }
       };
 
@@ -80,20 +66,19 @@ function RegisterFuta() { // Đặt tên thành phần React là Login thay vì 
 
       const taomoinguoidung = async (data) => {
         try {
-          const response = await createNewTaikhoan(data);
+          const response = await createNewKhachhang(data);
           if (response && response.errcode !== 0) {
-           
+            toast.error('Tạo Tài khoản thất bại !');
             alert(response.errMessage);
           } else {
-           
+            toast.success('Tạo Tài khoản thành công !');
             setState({
-              sdt: '',
-              matkhau: '',
-              nhaplaimatkhau: '',
-              maquyen:'',
+                hoten:'',
+                email:'',
+                sdt:''
              
             });
-            history.replace("/infomation");
+            history.replace("/Login");
           }
         } catch (e) {
           console.log(e);
@@ -127,7 +112,7 @@ function RegisterFuta() { // Đặt tên thành phần React là Login thay vì 
                          <div className="login-image2"><img src={loginxe}/></div>
                      </div>
                      <div className="create-account">
-                         <b>Tạo tài khoản</b>
+                         <b>Cập nhật thông tin</b>
                          <div className="login-left">
                             <img src={phone} className=""/>
                             <Link to="/login" className="login">
@@ -144,31 +129,29 @@ function RegisterFuta() { // Đặt tên thành phần React là Login thay vì 
                                 handleOnChangeInput(event, 'sdt');
                               }}
                               value={state.sdt}
+                              readOnly
                              />
                             
                          </div>
                          <div className="input-group">
-                             <input type={isShowPassword ? 'text' : 'password'} required name="password" placeholder="Nhập mật khẩu" 
-                              onChange={(event) => {
-                                handleOnChangeInput(event, 'matkhau');
+                             <input type="text" placeholder="Nhập Họ và tên" 
+                             onChange={(event) => {
+                                handleOnChangeInput(event, 'hoten');
                               }}
-                              value={state.matkhau}
+                              value={state.hoten}
                              />
-                              <span onClick={handleShowHidePassword} className="conmat">
-    <i className={isShowPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
-  </span> 
+                            
                          </div>
                          <div className="input-group">
-                             <input type={isShowPassword ? 'text' : 'password'} required name="password" placeholder="Nhập lai mật khẩu" 
+                             <input type="text" placeholder="Nhập Email" 
                              onChange={(event) => {
-                                handleOnChangeInput(event, 'nhaplaimatkhau');
+                                handleOnChangeInput(event, 'email');
                               }}
-                              value={state.nhaplaimatkhau}
+                              value={state.email}
                              />
-                              <span onClick={handleShowHidePassword} className="conmat">
-    <i className={isShowPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
-  </span> 
+                            
                          </div>
+                       
                          
                          <button  className="btn-login"onClick={()=>{handleAddNewUser()}} >Tiếp tục</button>
                      </div>
@@ -180,4 +163,4 @@ function RegisterFuta() { // Đặt tên thành phần React là Login thay vì 
     );
 }
 
-export default RegisterFuta;
+export default InformationFuta;

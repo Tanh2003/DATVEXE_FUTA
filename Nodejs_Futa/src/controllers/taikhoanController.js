@@ -44,6 +44,25 @@ let handleGetAlltaikhoan =async(req,res)=>{
 
  })
 }
+let laythongtintaikhoan =async(req,res)=>{
+    let id=req.query.id;//all, id
+    if(!id){
+        return res.status(200).json({
+            errcode:1,
+            errMessage:'Missing require parameters',
+            taikhoans:[]
+        })
+        
+    }
+       let info=await taikhoanSevices.getAllinfotaikhoan(id);
+       console.log(info);
+       return res.status(200).json({
+    errcode:0,
+    errMessage:'OK',
+    info
+
+ })
+}
 let laytatcataikhoannhanvien =async(req,res)=>{
     let id=req.query.id;//all, id
     if(!id){
@@ -99,7 +118,8 @@ module.exports={
     handleCreateNewtaikhoan:handleCreateNewtaikhoan,
     handleEdittaikhoan:handleEdittaikhoan,
     handleDeletetaikhoan:handleDeletetaikhoan,
-    laytatcataikhoannhanvien:laytatcataikhoannhanvien
+    laytatcataikhoannhanvien:laytatcataikhoannhanvien,
+    laythongtintaikhoan:laythongtintaikhoan,
 
    
 }

@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import Slider from "react-slick";
 import Select from "react-select";
+import {
+  getAllChuyenxe,
+} from "../userService";
 
 import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
@@ -14,21 +17,31 @@ import "slick-carousel/slick/slick-theme.css";
 
 function TimKiem() {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [danhsachchuyenxe, setdanhsachchuyenxe] = useState({});
 
-  //Địa chỉ
-  const options = [
-    { value: "hcm", label: "TP.Hồ Chí Minh" },
-    { value: "qn", label: "Quảng Ngãi" },
-  ];
+
+
+  useEffect(() => {
+    const getAllTaikhoanReact = async () => {
+      let response = await getAllChuyenxe("ALL");   
+      if (response && response.errcode === 0) {
+       
+        setdanhsachchuyenxe(response.chuyenxe);
+      }
+    };
+  
+    getAllTaikhoanReact();
+  }, []);
+  
+
+
+
   const [selectedOption, setSelectedOption] = useState(null);
   const handleChange = (selected) => {
     setSelectedOption(selected);
   };
 
-  const options2 = [
-    { value: "hcm", label: "TP.Hồ Chí Minh" },
-    { value: "qn", label: "Quảng Ngãi" },
-  ];
+  
   const [selectedOption2, setSelectedOption2] = useState(null);
   const handleChange2 = (selected) => {
     setSelectedOption2(selected);
@@ -57,6 +70,32 @@ function TimKiem() {
 
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
+  };
+  const [chuyenXe, setChuyenXe] = useState([]);
+
+  
+  const handleTimVe = () => {
+    // Lấy giá trị điểm đi và điểm đến từ selectedOption và selectedOption2
+    const diemDi = selectedOption.value; // Sử dụng optional chaining để xử lý trường hợp giá trị null
+    const diemDen = selectedOption2.value;
+    const ngayDi = selectedDate;
+
+    console.log("diemDi:", diemDi);
+  console.log("diemDen:", diemDen);
+  console.log("ngayDi:", ngayDi);
+  console.log("hello",danhsachchuyenxe);
+    // Lọc danh sách chuyến xe dựa trên các thông tin đã nhập
+    const danhSachChuyenXeDaLoc = danhsachchuyenxe.filter((chuyenDi) => {
+      return (
+        chuyenDi.diemdi === diemDi &&
+        chuyenDi.diemden === diemDen 
+      );
+    });
+    
+    console.log("chuyenxe da loc",danhSachChuyenXeDaLoc);
+
+    // Cập nhật danh sách chuyến xe trong trạng thái chuyenXe
+    setChuyenXe(danhSachChuyenXeDaLoc);
   };
 
   return (
@@ -91,11 +130,14 @@ function TimKiem() {
                   Điểm đi
                 </label>
                 <Select
-                  value={selectedOption}
-                  onChange={handleChange}
-                  options={options}
-                  className="customselect"
-                />
+  value={selectedOption}
+  onChange={handleChange}
+  options={danhsachchuyenxe && danhsachchuyenxe.length > 0 ? danhsachchuyenxe.map(item => ({
+    value: item.diemdi, // Replace with the correct key for the value
+    label: item.diemdi, // Replace with the correct key for the label
+  })) : []}
+  className="customselect"
+/>
               </div>
             </div>
             <div className="col">
@@ -104,11 +146,15 @@ function TimKiem() {
                   Điểm đến
                 </label>
                 <Select
-                  value={selectedOption2}
-                  onChange={handleChange2}
-                  options={options2}
-                  className="customselect"
-                />
+  value={selectedOption2}
+  onChange={handleChange2}
+  options={danhsachchuyenxe && danhsachchuyenxe.length > 0 ? danhsachchuyenxe.map(item => ({
+    value: item.diemden, // Replace with the correct key for the value
+    label: item.diemden, // Replace with the correct key for the label
+  })) : []}
+  className="customselect"
+/>
+
               </div>
             </div>
             <div className="col">
@@ -137,8 +183,22 @@ function TimKiem() {
               </div>
             </div>
           </div>
-          <button type="submit">Tìm Vé</button>
+          <button type="submit"onClick={handleTimVe}>Tìm Vé</button>
         </div>
+        {chuyenXe.length> 0 && (
+          <div className="danh-sach-chuyen-xe">
+            <h2>Danh sách chuyến xe:</h2>
+            <ul>
+              {chuyenXe.map((item, index) => (
+                <li key={index}>
+                  Chuyến xe {item.tenchuyen} - Điểm đi: {item.diemdi}, Điểm đến:{" "}
+                  {item.diemden}, Ngày đi: {item.dodai}, Số vé:{" "}
+                  {item.gia}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </main>
     </div>
   );
