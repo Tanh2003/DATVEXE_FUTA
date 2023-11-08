@@ -59,6 +59,68 @@ function TimKiem() {
     setSelectedType(event.target.value);
   };
 
+
+
+  const [chuyenXe, setChuyenXe] = useState([]);
+
+  const danhSachChuyenXe = [
+    {
+      id: 1,
+      diemDi: "hcm",
+      diemDen: "qn",
+      ngayDi: "2023-11-11",
+      soVe: 5,
+      loaiVe: "Một chiều",
+    },
+    {
+      id: 4,
+      diemDi: "hcm",
+      diemDen: "qn",
+      ngayDi: "2027-11-11",
+      soVe: 5,
+      loaiVe: "Một chiều",
+    },
+    {
+      id: 2,
+      diemDi: "hcm",
+      diemDen: "hn",
+      ngayDi: "2023-11-12",
+      soVe: 42,
+      loaiVe: "Khứ hồi",
+    },
+    {
+      id: 3,
+      diemDi: "qn",
+      diemDen: "hcm",
+      ngayDi: "2024-11-12",
+      soVe: 42,
+      loaiVe: "Khứ hồi",
+    },
+    // Thêm các chuyến xe khác vào đây
+  ];
+
+  const handleTimVe = () => {
+    // Lấy giá trị điểm đi và điểm đến từ selectedOption và selectedOption2
+    const diemDi = selectedOption?.value; // Sử dụng optional chaining để xử lý trường hợp giá trị null
+    const diemDen = selectedOption2?.value;
+    const ngayDi = selectedDate;
+
+    console.log("diemDi:", diemDi);
+  console.log("diemDen:", diemDen);
+  console.log("ngayDi:", ngayDi);
+
+    // Lọc danh sách chuyến xe dựa trên các thông tin đã nhập
+    const danhSachChuyenXeDaLoc = danhSachChuyenXe.filter((chuyenDi) => {
+      return (
+        chuyenDi.diemDi === diemDi &&
+        chuyenDi.diemDen === diemDen 
+      );
+    });
+
+    // Cập nhật danh sách chuyến xe trong trạng thái chuyenXe
+    setChuyenXe(danhSachChuyenXeDaLoc);
+  };
+
   return (
     <div>
       <main>
@@ -137,8 +199,24 @@ function TimKiem() {
               </div>
             </div>
           </div>
-          <button type="submit">Tìm Vé</button>
+          <button type="submit" onClick={handleTimVe}>
+            Tìm Vé
+          </button>
         </div>
+        {chuyenXe.length > 0 && (
+          <div className="danh-sach-chuyen-xe">
+            <h2>Danh sách chuyến xe:</h2>
+            <ul>
+              {chuyenXe.map((chuyen, index) => (
+                <li key={index}>
+                  Chuyến xe {chuyen.id} - Điểm đi: {chuyen.diemDi}, Điểm đến:{" "}
+                  {chuyen.diemDen}, Ngày đi: {chuyen.ngayDi}, Số vé:{" "}
+                  {chuyen.soVe}, Loại vé: {chuyen.loaiVe}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </main>
     </div>
   );
