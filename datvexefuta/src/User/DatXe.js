@@ -9,7 +9,8 @@ import {toast} from "react-toastify";
 import {
   getAllChuyenxe,
   createNewVexe,
-  getAllTTchuyenxe
+  getAllTTchuyenxe,
+  createNewKhachhang
 
 } from "../userService";
 import { getAllThongtintaikhoan } from "../userService";
@@ -31,6 +32,9 @@ function Booking() {
     thoigianbatdau:'',
     thoigianmua:'',
     matk:'',
+    hoten:'',
+    email:'',
+    
   });
   const handleOnChangeInput = (event, id) => {
     const copyState = { ...state };
@@ -53,8 +57,14 @@ function Booking() {
         thoigianbatdau:'',
         thoigianmua: new Date(),
         matk:1
+
        
       });
+      thongtinkhachhang({
+        sdt:state.sdt,
+        email:state.email,
+        hoten:state.hoten
+      })
   };
 
 
@@ -62,10 +72,9 @@ function Booking() {
     try {
       const response = await createNewVexe(data);
       if (response && response.errcode !== 0) {
-        toast.error('Đặt vé thất bại !');
         alert(response.errMessage);
       } else {
-        toast.success('Đặt vé thành công!');
+     
         setState({
           sdt:'',
           giave:'',
@@ -74,7 +83,10 @@ function Booking() {
           thoigianbatdau:'',
           thoigianmua:'',
           matk:'',
+          
         });
+        totalPrice=0;
+        selectedSeats=[];
       
       }
     } catch (e) {
@@ -82,6 +94,26 @@ function Booking() {
     }
   };
 
+
+  const thongtinkhachhang = async (data) => {
+    try {
+      const response = await createNewKhachhang(data);
+      if (response && response.errcode !== 0) {
+        toast.error('Đặt vé thất bại !');
+        alert(response.errMessage);
+      } else {
+        toast.success('Đặt vé thành công!');
+        setState({
+          sdt:'',
+          hoten:'',
+          email:'',
+        });
+      
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 
 
@@ -323,6 +355,10 @@ function Booking() {
                   className="custom-inp"
                   name="user_name"
                   placeholder="Họ và tên"
+                  onChange={(event) => {
+                    handleOnChangeInput(event, 'hoten');
+                  }}
+                  value={state.hoten}
                 />
                 )}
              
@@ -369,6 +405,10 @@ function Booking() {
                   className="custom-inp"
                   name="user_name"
                   placeholder="Email"
+                  onChange={(event) => {
+                    handleOnChangeInput(event, 'email');
+                  }}
+                  value={state.email}
                 />
                 )}
              
