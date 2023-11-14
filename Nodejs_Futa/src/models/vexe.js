@@ -15,15 +15,14 @@ module.exports = (sequelize, DataTypes) => {
   };
   vexe.init({
    
-    
+    sdt:DataTypes.STRING,
     giave:DataTypes.FLOAT,
     soghe:DataTypes.STRING,
-    sove:DataTypes.INTEGER,
     machuyen:DataTypes.INTEGER,
-    manv:DataTypes.INTEGER,
-    makh:DataTypes.INTEGER,
     thoigianbatdau:DataTypes.DATE,
     thoigianmua:DataTypes.DATE,
+    matk:DataTypes.INTEGER,
+
   }, {
     sequelize,
     modelName: 'vexe',

@@ -26,13 +26,13 @@ let Createvexe = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       await db.vexe.create({
-        makh: data.makh,
+        sdt:data.sdt,
         giave: data.giave,
         soghe: data.soghe,
-        sove:data.sove,
-        manv: data.manv,
         machuyen: data.machuyen,
-        maxe: data.maxe,
+        thoigianbatdau:data.thoigianbatdau,
+        thoigianmua:data.thoigianmua,
+        matk: data.matk,
       });
 
       resolve({
@@ -83,15 +83,13 @@ let updatevexeData = (data) => {
         raw: false,
       });
       if (vexe) {
-        vexe.makh = data.makh;
+        vexe.sdt=data.sdt;
         vexe.giave = data.giave;
         vexe.soghe = data.soghe;
-        vexe.sove=data.sove
-        vexe.manv = data.manv;
         vexe.machuyen = data.machuyen;
         vexe.thoigianbatdau = data.thoigianbatdau;
         vexe.thoigianmua = data.thoigianmua;
-        vexe.maxe = data.maxe;
+        vexe.matk = data.matk;
 
         await vexe.save();
 

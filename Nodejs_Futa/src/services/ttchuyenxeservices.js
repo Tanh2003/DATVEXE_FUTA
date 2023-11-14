@@ -7,12 +7,26 @@ let getAllTTchuyenxe = (TTchuyenxeid) => {
         TTchuyenxe = db.TTchuyenxe.findAll({
           // ẩn mật khẩu
           order: [["createdAt", "DESC"]],
+          include: [{
+            model: db.chuyenxe,
+            as: 'idmachuyenData',
+            attributes: ['tenchuyen','dodai','diemdi','diemden','gia' ],
+        }, ],
+        raw: true,
+        nest: true,
         });
       }
       if (TTchuyenxeid && TTchuyenxeid !== "ALL") {
         TTchuyenxe = await db.TTchuyenxe.findOne({
           where: { id: TTchuyenxeid }, //  userId laf cais tham so truyen vao
           // ẩn mật khẩu
+          include: [{
+            model: db.chuyenxe,
+            as: 'idmachuyenData',
+            attributes: ['tenchuyen','dodai','diemdi','diemden','gia' ],
+        }, ],
+        raw: true,
+        nest: true,
         });
       }
       resolve(TTchuyenxe);
@@ -25,12 +39,7 @@ let getAllTTchuyenxe = (TTchuyenxeid) => {
 let CreateTTchuyenxe = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await db.TTchuyenxe.create({
-        machuyen:data.machuyen,
-        ngay:data.ngay,
-        soluongve:data.soluongve,
-        thoigian:data.thoigian
-      });
+      await db.TTchuyenxe.bulkCreate(data);
 
       resolve({
         errcode: 0,

@@ -51,7 +51,7 @@ const HeaderFutaMain = () => {
         <div className="main-menu">
           <ul>
             <li>
-              <a href="trangchu">Trang chủ</a>
+              <Link to="/trangchu">Trang chủ</Link>
             </li>
             <li>
               <a href="#">Kiểm tra vé</a>

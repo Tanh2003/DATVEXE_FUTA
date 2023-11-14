@@ -18,11 +18,12 @@ import ChuyenxeAdmin from "../Admin/ChuyenxeAdmin";
 import InformationFuta from "../Dangnhap_DangKy/InformationFuta";
 
 import RegisterFuta from "../Dangnhap_DangKy/RegisterFuta";
+import TTChuyenXeAdmin from "../Admin/TTChuyenXeAdmin";
 function App() {
   return (
     <Router>
       <Switch>
-      
+      <Route path="/admin/ttchuyenxe" exact component={TTChuyenXeAdmin} />
       <Route path="/admin/chuyenxe" exact component={ChuyenxeAdmin} />
       <Route path="/admin/nhanvien" exact component={NhanvienAdmin} />
       <Route path="/admin/khachhang" exact component={khachhangAdmin} />

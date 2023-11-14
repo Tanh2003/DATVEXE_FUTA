@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
+
 import Slider from "react-slick";
 import Select from "react-select";
 import { getAllChuyenxe, getAllTTchuyenxe } from "../userService";
@@ -8,14 +8,17 @@ import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
 import "./TrangChu.scss";
 import "./setup.scss";
-
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+const moment = require('moment');
 
 function TimKiem() {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [danhsachchuyenxe, setdanhsachchuyenxe] = useState({});
+  const [danhsachchuyenxe, setdanhsachchuyenxe] = useState([]);
   const [thongtinchuyenxe, setthongtinchuyenxe] = useState({});
 
   useEffect(() => {
@@ -41,13 +44,12 @@ function TimKiem() {
   }, []);
 
   const [selectedOption, setSelectedOption] = useState(null);
-  const handleChange = (selected) => {
-    setSelectedOption(selected);
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
   };
-
   const [selectedOption2, setSelectedOption2] = useState(null);
-  const handleChange2 = (selected) => {
-    setSelectedOption2(selected);
+  const handleChange2 = (selectedOption2) => {
+    setSelectedOption2(selectedOption2);
   };
 
   //So Ve
@@ -76,26 +78,59 @@ function TimKiem() {
   };
   const [chuyenXe, setChuyenXe] = useState([]);
 
+  const formattedDate = selectedDate
+  ? format(selectedDate, "yyyy-MM-dd'T'17:mm:ss'.000Z'")
+  : "";
   const handleTimVe = () => {
     // Lấy giá trị điểm đi và điểm đến từ selectedOption và selectedOption2
     const diemDi = selectedOption.value; // Sử dụng optional chaining để xử lý trường hợp giá trị null
     const diemDen = selectedOption2.value;
-    const ngayDi = selectedDate;
+    const ngayDi = formattedDate;
 
     console.log("diemDi:", diemDi);
     console.log("diemDen:", diemDen);
-    console.log("ngayDi:", ngayDi);
+    console.log("ngayDi ne:", ngayDi);
     console.log("hello", danhsachchuyenxe);
+   
+
     // Lọc danh sách chuyến xe dựa trên các thông tin đã nhập
     const danhSachChuyenXeDaLoc = danhsachchuyenxe.filter((chuyenDi) => {
-      return chuyenDi.diemdi === diemDi && chuyenDi.diemden === diemDen;
+      console.log("xem chuyen di.ngay: ",chuyenDi.idmachuyenData.ngay);
+
+      const ngayDaDinhDang = moment(chuyenDi.idmachuyenData.ngay).format('MM/DD/YYYY');
+      const ngaydi2=moment(ngayDi).format('MM/DD/YYYY');
+     
+      return chuyenDi.diemdi === diemDi && chuyenDi.diemden === diemDen&&ngayDaDinhDang===ngaydi2;
     });
 
-    console.log("chuyenxe da loc", danhSachChuyenXeDaLoc);
+    
+    console.log("chuyenxe da loc neeee", danhSachChuyenXeDaLoc);
 
     // Cập nhật danh sách chuyến xe trong trạng thái chuyenXe
     setChuyenXe(danhSachChuyenXeDaLoc);
   };
+
+
+ // Lọc danh sách để chỉ giữ lại một lựa chọn cho mỗi giá trị duy nhất của `item.diemdi`
+ const uniqueOptions = danhsachchuyenxe.reduce((acc, current) => {
+  const existingOption = acc.find((option) => option.value === current.diemdi);
+  if (!existingOption) {
+    acc.push({ value: current.diemdi, label: current.diemdi });
+  }
+  return acc;
+}, []);
+
+
+
+const uniqueOptions2 = danhsachchuyenxe.reduce((acc, current) => {
+  const existingOption = acc.find((option) => option.value === current.diemden);
+  if (!existingOption) {
+    acc.push({ value: current.diemden, label: current.diemden });
+  }
+  return acc;
+}, []);
+
+
 
   return (
     <div>
@@ -129,18 +164,11 @@ function TimKiem() {
                   Điểm đi
                 </label>
                 <Select
-                  value={selectedOption}
-                  onChange={handleChange}
-                  options={
-                    danhsachchuyenxe && danhsachchuyenxe.length > 0
-                      ? danhsachchuyenxe.map((item) => ({
-                          value: item.diemdi, // Replace with the correct key for the value
-                          label: item.diemdi, // Replace with the correct key for the label
-                        }))
-                      : []
-                  }
-                  className="customselect"
-                />
+      value={selectedOption}
+      onChange={handleChange}
+      options={uniqueOptions}
+      className="customselect"
+    />
               </div>
             </div>
             <div className="col">
@@ -149,18 +177,11 @@ function TimKiem() {
                   Điểm đến
                 </label>
                 <Select
-                  value={selectedOption2}
-                  onChange={handleChange2}
-                  options={
-                    danhsachchuyenxe && danhsachchuyenxe.length > 0
-                      ? danhsachchuyenxe.map((item) => ({
-                          value: item.diemden, // Replace with the correct key for the value
-                          label: item.diemden, // Replace with the correct key for the label
-                        }))
-                      : []
-                  }
-                  className="customselect"
-                />
+        value={selectedOption2}
+        onChange={handleChange2}
+        options={uniqueOptions2}
+        className="customselect"
+      />
               </div>
             </div>
             <div className="col">
@@ -201,10 +222,10 @@ function TimKiem() {
                 <li key={index}>
                   Chuyến xe {item.tenchuyen} - Điểm đi: {item.diemdi}, Điểm đến:
                   {item.diemden},
-                  Ngày đi: {item.idmachuyenData.thoigian}, Số vé:
+                  Giờ đi: {item.idmachuyenData.thoigian}, Số vé:
                   {item.idmachuyenData.soluongve},giá:
                   {item.gia}
-                  <Link to={`/datxe/${item.id}`}>
+                  <Link to={`/datxe/${item.idmachuyenData.id}`}>
                     {" "}
                     <button>Chi Tiết</button>
                   </Link>

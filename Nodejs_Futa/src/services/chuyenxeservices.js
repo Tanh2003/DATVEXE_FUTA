@@ -10,7 +10,7 @@ let getAllchuyenxe = (chuyenxeid) => {
           include: [{
             model: db.TTchuyenxe,
             as: 'idmachuyenData',
-            attributes: ['thoigian','soluongve','ngay' ],
+            attributes: ['thoigian','soluongve','ngay','id' ],
         }, ],
         raw: true,
         nest: true,
@@ -23,7 +23,7 @@ let getAllchuyenxe = (chuyenxeid) => {
           include: [{
             model: db.TTchuyenxe,
             as: 'idmachuyenData',
-            attributes: ['thoigian','soluongve','ngay' ],
+            attributes: ['thoigian','soluongve','ngay','id' ],
         }, ],
         raw: true,
         nest: true,
@@ -37,18 +37,48 @@ let getAllchuyenxe = (chuyenxeid) => {
   });
 };
 
+
+let checkchuyenxe=(diemdi,diemden)=>{
+  return new Promise(async(resolve,reject)=>{
+      try{
+          let user =await db.chuyenxe.findOne({
+             
+              where: {diemdi:diemdi, diemden:diemden},
+             
+          });
+          if(user){
+              resolve(true);
+          }else{
+              resolve(false);
+          }
+
+      }catch(e){
+          reject(e);
+
+      }
+  })
+}
+
 let Createchuyenxe = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await db.chuyenxe.create({
-        tenchuyen: data.tenchuyen,
-        dodai: data.dodai,
-        diemdi: data.diemdi,
-        diemden: data.diemden,
-        gia: data.gia,
-      
-      });
 
+      let check= await checkchuyenxe(data.diemdi,data.diemden);
+            if(check==true){
+                resolve({
+                    errcode:1,
+                    errMessage:"chuyen di hoac chuyen den đã tồn tại vui lòng ghi chuyen khac khác"
+                })
+            }else{
+              await db.chuyenxe.create({
+                tenchuyen: data.tenchuyen,
+                dodai: data.dodai,
+                diemdi: data.diemdi,
+                diemden: data.diemden,
+                gia: data.gia,
+              
+              });
+              
       resolve({
         errcode: 0,
         data: data,
@@ -58,6 +88,9 @@ let Createchuyenxe = (data) => {
         errcode: 0,
         message: "OK",
       });
+            }
+      
+
     } catch (e) {
       reject(e);
     }

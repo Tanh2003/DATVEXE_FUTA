@@ -5,8 +5,11 @@ import "./DatXe.scss";
 import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
 import { useParams } from 'react-router-dom';
+import {toast} from "react-toastify";
 import {
   getAllChuyenxe,
+  createNewVexe,
+  getAllTTchuyenxe
 
 } from "../userService";
 import { getAllThongtintaikhoan } from "../userService";
@@ -15,27 +18,116 @@ function Booking() {
   // Số lượng hàng và ghế trong mỗi hàng
   const { id } = useParams(); // Lấy giá trị id từ Route Parameters
 
-  
+  console.log("xem id ne   ", id);
+
+
   const [chuyenxe,setchuyenxe]=useState("");
 
+  const [state, setState] = useState({
+    sdt:'',
+    giave:'',
+    soghe:'',
+    machuyen:'',
+    thoigianbatdau:'',
+    thoigianmua:'',
+    matk:'',
+  });
+  const handleOnChangeInput = (event, id) => {
+    const copyState = { ...state };
+    copyState[id] = event.target.value;
+    setState({ ...copyState });
+  };
 
-  useEffect(() => {
-    const getAllTaikhoanReact = async () => {
-      let response = await getAllChuyenxe(id);   
-      if (response && response.errcode === 0) {
-       
-        setchuyenxe(response.chuyenxe);
-      }
-    };
+
   
-    getAllTaikhoanReact();
-  }, []);
 
-  const [thongtin, setThongtin] = useState();
+  const buttonDatve = () => {
+
+  
+
+      datvexe({
+        sdt:state.sdt,
+        giave:totalPrice,
+        soghe: selectedSeats.join(", "),
+        machuyen:id,
+        thoigianbatdau:'',
+        thoigianmua: new Date(),
+        matk:1
+       
+      });
+  };
+
+
+  const datvexe = async (data) => {
+    try {
+      const response = await createNewVexe(data);
+      if (response && response.errcode !== 0) {
+        toast.error('Đặt vé thất bại !');
+        alert(response.errMessage);
+      } else {
+        toast.success('Đặt vé thành công!');
+        setState({
+          sdt:'',
+          giave:'',
+          soghe:'',
+          machuyen:'',
+          thoigianbatdau:'',
+          thoigianmua:'',
+          matk:'',
+        });
+      
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   useEffect(() => {
-    const getAllTaikhoanReact = async () => {
+    getAllchuyenxeReact();
+
+
+    getAllTaikhoanReact();
+  }, [id]);
+
+
+
+  const getAllchuyenxeReact = async () => {
+    if (id) {  // Kiểm tra xem `id` có tồn tại không
+      let response = await getAllTTchuyenxe(id);
+      if (response && response.errcode === 0) {
+        setchuyenxe(response.TTchuyenxe);
+      }
+    }
+  };
+  
+  const getAllTaikhoanReact = async () => {
+    if (id) {  // Kiểm tra xem `id` có tồn tại không
       const taiKhoanData = JSON.parse(localStorage.getItem('taikhoan'));
-      if(taiKhoanData){
+      if (taiKhoanData) {
         const sdt = taiKhoanData.sdt;
         if (sdt) {
           let response = await getAllThongtintaikhoan(sdt);
@@ -44,12 +136,13 @@ function Booking() {
           }
         }
       }
-    
-     
-    };
+    }
+  };
 
-    getAllTaikhoanReact();
-  }, []);
+  const [thongtin, setThongtin] = useState();
+
+
+  
 
   
   const numRows = 6;
@@ -122,6 +215,8 @@ function Booking() {
       </div>
     );
   }
+
+  const totalPrice = selectedSeats.length * (chuyenxe && chuyenxe.idmachuyenData.gia ? chuyenxe.idmachuyenData.gia : 0);
   return (
     <main>
     <div className="dsmain">
@@ -202,7 +297,7 @@ function Booking() {
         <div className="selected-seats dstable">
           <p> Danh sách ghế đã chọn: {selectedSeats.join(", ")} </p>
           <p> Tổng số ghế đã chọn: {selectedSeats.length} </p>
-          <p> Tổng tiền: {formatPrice(selectedSeats.length * chuyenxe&&chuyenxe?chuyenxe.gia:"" )} </p>
+          <p> Tổng tiền: {formatPrice(totalPrice)} </p>
           <p>
             {pickupLocation} <i className="fas fa-angle-double-right"> </i>
             {dropOffLocation}
@@ -249,6 +344,10 @@ function Booking() {
                   className="custom-inp"
                   name="user_name"
                   placeholder="Số điện thoại"
+                  onChange={(event) => {
+                    handleOnChangeInput(event, 'sdt');
+                  }}
+                  value={state.sdt}
                 />
                 )}
              
@@ -280,7 +379,7 @@ function Booking() {
       
     </div>
     <div className="col">
-        <button className="custom-btn2"> Đặt vé </button>
+        <button className="custom-btn2" onClick={buttonDatve}> Đặt vé </button>
     </div>
     </main>
 

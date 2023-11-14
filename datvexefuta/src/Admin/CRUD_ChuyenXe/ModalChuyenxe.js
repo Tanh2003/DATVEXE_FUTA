@@ -4,6 +4,9 @@ import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "../../axios";
+
+
 
 
 import _ from "lodash";
@@ -14,6 +17,8 @@ class ModalChuyenxe extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      arrdiemdi:[],
+      arrdiemden:[],
       tenchuyen: "",
       dodai:"",
       diemdi:"",
@@ -36,8 +41,16 @@ class ModalChuyenxe extends Component {
       });
     });
   };
+
+
  componentDidMount() {
+
+
+  
   }
+
+
+
 
   toggle = () => {
     this.props.toggleFromParent();

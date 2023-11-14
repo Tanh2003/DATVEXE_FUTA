@@ -24,6 +24,10 @@ export const DashBoard = () => {
   const handleManageChuyenxe = () => {
     history.replace("/admin/chuyenxe");
   };
+
+  const handleManageTTChuyenxe = () => {
+    history.replace("/admin/ttchuyenxe");
+  };
  
 
   const handleManageTaikhoan = () => {
@@ -65,7 +69,10 @@ export const DashBoard = () => {
           <i className="fas fa-shuttle-van mr-2"></i>
             <span>Quản lý Chuyến Xe</span>
           </li>
-          
+          <li onClick={() => handleManageTTChuyenxe()}>
+          <i className="fas fa-shuttle-van mr-2"></i>
+            <span>Quản lý Thông tin chuyến xe</span>
+          </li>
 
        
           <li className="logout">
