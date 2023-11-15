@@ -6,6 +6,7 @@ import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
 import { useParams } from 'react-router-dom';
 import {toast} from "react-toastify";
+
 import {
   
   createNewVexe,
@@ -57,7 +58,7 @@ const [soghedadat, setSoghedadat] = useState([]);
 
   const buttonDatve = () => {
 
-  
+    
 
       datvexe({
         sdt:state.sdt,
@@ -77,19 +78,23 @@ const [soghedadat, setSoghedadat] = useState([]);
       })
 
       
-      chitietchuyenxe({
-        idttchuyenxe:id,
-        soghe:selectedSeats.join(", "),
-      })
+    
 
+    
+if(layttchitietchuyenxe.idttchuyenxe!==undefined){
+  updatechitietchuyenxe({
+    idttchuyenxe:layttchitietchuyenxe.idttchuyenxe,
 
+    soghe:layttchitietchuyenxe.soghe+", "+selectedSeats.join(", "),
+  })
 
-      updatechitietchuyenxe({
-        idttchuyenxe:layttchitietchuyenxe.idttchuyenxe,
-
-        soghe:layttchitietchuyenxe.soghe+", "+selectedSeats.join(", "),
-      })
- 
+}else{
+  chitietchuyenxe({
+    idttchuyenxe:id,
+    soghe:selectedSeats.join(", "),
+  })
+}
+      
    
   };
 
@@ -104,7 +109,7 @@ const [soghedadat, setSoghedadat] = useState([]);
         setState({
           sdt:'',
           giave:'',
-         soghe:'',
+          soghe:'',
           machuyen:'',
           thoigianbatdau:'',
           thoigianmua:'',
@@ -217,10 +222,10 @@ const [soghedadat, setSoghedadat] = useState([]);
 
  
     getAllchuyenxeReact();
-
+    loadSoghedadat();
 
     getAllTaikhoanReact();
-    laychitietchuyenxe();
+     laychitietchuyenxe();
   }, [id]);
 
 
@@ -237,10 +242,27 @@ const [soghedadat, setSoghedadat] = useState([]);
   const laychitietchuyenxe = async () => {
    // Kiểm tra xem `id` có tồn tại không
       let response = await getAllChitietchuyenxe(id);
+      console.log("xem chuyen xe",response)
       if (response && response.errcode === 0) {
+
+       
         setlaychitietchuyenxe(response.chitietchuyenxe);
       }
     
+  };
+
+  const loadSoghedadat = async () => {
+    // Lấy danh sách ghế đã đặt từ API hoặc localStorage
+    try {
+      const response = await getAllChitietchuyenxe(id);
+      if (response && response.errcode === 0) {
+        const sogheData = response.chitietchuyenxe.soghe;
+        const sogheArray = sogheData.split(", ");
+        setSoghedadat(sogheArray);
+      }
+    } catch (error) {
+      console.error('Error loading soghedadat:', error);
+    }
   };
   
   const getAllTaikhoanReact = async () => {
@@ -292,7 +314,12 @@ const [soghedadat, setSoghedadat] = useState([]);
   const [showError, setShowError] = useState(false);
   // Hàm xử lý khi người dùng chọn ghế
   const handleSeatClick = (rowIndex, seatIndex) => {
-const sogheArray = layttchitietchuyenxe.soghe.split(", ");
+    
+
+    const soghene=layttchitietchuyenxe.soghe.split(", ");
+     const sogheArray= soghene;
+    
+   
     setSoghedadat(sogheArray);
     const clickedSeatIndex = calculateSeatIndex(rowIndex, seatIndex);
     const newSeats = [...seats];
@@ -375,11 +402,13 @@ const sogheArray = layttchitietchuyenxe.soghe.split(", ");
                         const isOccupied = seats[seatIndex];
                         const seatNumber = seatIndex + 1;
                         const seatName = getSeatName(seatNumber);
+                        
                         return (
                           <div
                             key={seatIndex}
                             className={`seat ${
-                              isOccupied ? "occupied" : "available"
+                              isOccupied ? "occupied" : (soghedadat.includes(seatName) ? "selected" : "available")
+
                               
                             }`}
                             onClick={() => handleSeatClick(rowIndex, index)}

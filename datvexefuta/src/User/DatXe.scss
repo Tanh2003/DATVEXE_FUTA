@@ -26,9 +26,14 @@
 }
 
 .seat.selected {
-  background-color: gray; /* Màu sắc khi ghế được chọn */
+  background-color: gray  ; /* Màu sắc khi ghế được chọn */
   color: #fff; /* Màu chữ khi ghế được chọn */
+  
 }
+.seat.booked {
+  background-color: grey; /* hoặc màu khác mà bạn chọn */
+}
+
 
 /* Phong cách cho nút đặt vé (chưa xử lý) */
 button {

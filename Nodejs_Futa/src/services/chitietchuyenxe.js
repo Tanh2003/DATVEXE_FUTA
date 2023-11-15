@@ -10,11 +10,21 @@ let getAllchitietchuyenxe = (chitietchuyenxeid) => {
         });
       }
       if (chitietchuyenxeid && chitietchuyenxeid !== "ALL") {
-        chitietchuyenxe = await db.chitietchuyenxe.findOne({
-          where: { idttchuyenxe: chitietchuyenxeid }, //  userId laf cais tham so truyen vao
-          // ẩn mật khẩu
-        });
+      
+          chitietchuyenxe = await db.chitietchuyenxe.findOne({
+            where: { idttchuyenxe: chitietchuyenxeid }, //  userId laf cais tham so truyen vao
+            // ẩn mật khẩu
+          });
+          if(chitietchuyenxe===null){
+            let data="A, B, C, D, E, B,";
+            chitietchuyenxe={
+              soghe:data
+            }
+          }
+        
+
       }
+     
       resolve(chitietchuyenxe);
     } catch (e) {
       reject(e);
@@ -68,7 +78,7 @@ let deletechitietchuyenxe = (chitietchuyenxeId) => {
 let updatechitietchuyenxeData = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.id) {
+      if (!data.idttchuyenxe) {
         resolve({
           errcode: 2,
           errMessage: "Missing required parameter",
