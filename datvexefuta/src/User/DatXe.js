@@ -7,22 +7,31 @@ import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
 import { useParams } from 'react-router-dom';
 import {toast} from "react-toastify";
 import {
-  getAllChuyenxe,
+  
   createNewVexe,
   getAllTTchuyenxe,
-  createNewKhachhang
+  createNewKhachhang,
+  createNewChitietchuyenxe,
+  getAllChitietchuyenxe,
+  editChitietchuyenxe
 
 } from "../userService";
 import { getAllThongtintaikhoan } from "../userService";
+import { update } from 'lodash';
 
 function Booking() {
   // Số lượng hàng và ghế trong mỗi hàng
   const { id } = useParams(); // Lấy giá trị id từ Route Parameters
-
-  console.log("xem id ne   ", id);
-
-
   const [chuyenxe,setchuyenxe]=useState("");
+
+  
+
+
+  
+const [layttchitietchuyenxe,setlaychitietchuyenxe]=useState("");
+
+
+const [soghedadat, setSoghedadat] = useState([]);
 
   const [state, setState] = useState({
     sdt:'',
@@ -34,6 +43,7 @@ function Booking() {
     matk:'',
     hoten:'',
     email:'',
+    idttchuyenxe:''
     
   });
   const handleOnChangeInput = (event, id) => {
@@ -43,7 +53,7 @@ function Booking() {
   };
 
 
-  
+
 
   const buttonDatve = () => {
 
@@ -65,6 +75,22 @@ function Booking() {
         email:state.email,
         hoten:state.hoten
       })
+
+      
+      chitietchuyenxe({
+        idttchuyenxe:id,
+        soghe:selectedSeats.join(", "),
+      })
+
+
+
+      updatechitietchuyenxe({
+        idttchuyenxe:layttchitietchuyenxe.idttchuyenxe,
+
+        soghe:layttchitietchuyenxe.soghe+", "+selectedSeats.join(", "),
+      })
+ 
+   
   };
 
 
@@ -78,7 +104,7 @@ function Booking() {
         setState({
           sdt:'',
           giave:'',
-          soghe:'',
+         soghe:'',
           machuyen:'',
           thoigianbatdau:'',
           thoigianmua:'',
@@ -116,6 +142,55 @@ function Booking() {
   };
 
 
+  
+  const chitietchuyenxe = async (data) => {
+
+    
+    try {
+      const response = await createNewChitietchuyenxe(data);
+      if (response && response.errcode !== 0) {
+     
+        alert(response.errMessage);
+      } else {
+   
+        setState({
+
+          idttchuyenxe:'',
+          soghe:'',
+         
+        });
+      
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
+  const updatechitietchuyenxe = async (data) => {
+
+    
+    try {
+      const response = await editChitietchuyenxe(data);
+      if (response && response.errcode !== 0) {
+     
+        alert(response.errMessage);
+      } else {
+   
+        setState({
+          
+          soghe:'',
+         
+        });
+      
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
+
 
 
 
@@ -139,10 +214,13 @@ function Booking() {
 
 
   useEffect(() => {
+
+ 
     getAllchuyenxeReact();
 
 
     getAllTaikhoanReact();
+    laychitietchuyenxe();
   }, [id]);
 
 
@@ -154,6 +232,15 @@ function Booking() {
         setchuyenxe(response.TTchuyenxe);
       }
     }
+  };
+
+  const laychitietchuyenxe = async () => {
+   // Kiểm tra xem `id` có tồn tại không
+      let response = await getAllChitietchuyenxe(id);
+      if (response && response.errcode === 0) {
+        setlaychitietchuyenxe(response.chitietchuyenxe);
+      }
+    
   };
   
   const getAllTaikhoanReact = async () => {
@@ -205,12 +292,14 @@ function Booking() {
   const [showError, setShowError] = useState(false);
   // Hàm xử lý khi người dùng chọn ghế
   const handleSeatClick = (rowIndex, seatIndex) => {
+const sogheArray = layttchitietchuyenxe.soghe.split(", ");
+    setSoghedadat(sogheArray);
     const clickedSeatIndex = calculateSeatIndex(rowIndex, seatIndex);
     const newSeats = [...seats];
     const isOccupied = newSeats[clickedSeatIndex];
     const seatNumber = clickedSeatIndex + 1;
     const seatName = getSeatName(seatNumber);
-
+  
     if (isOccupied && selectedSeats.includes(seatName)) {
       // Loại bỏ ghế khỏi danh sách nếu đã được chọn
       newSeats[clickedSeatIndex] = false;
@@ -218,14 +307,21 @@ function Booking() {
         prevSelectedSeats.filter((selectedSeat) => selectedSeat !== seatName)
       );
     } else if (!isOccupied && selectedSeats.length < maxSeatsToSelect) {
-      // Thêm ghế vào danh sách nếu chưa được chọn và chưa đạt đến giới hạn
-      newSeats[clickedSeatIndex] = true;
-      setSelectedSeats((prevSelectedSeats) => [...prevSelectedSeats, seatName]);
+      // Kiểm tra xem ghế có thuộc danh sách soghedadat không
+      if (!soghedadat.includes(seatName)) {
+        // Nếu không thuộc danh sách, thêm ghế vào danh sách
+        newSeats[clickedSeatIndex] = true;
+        setSelectedSeats((prevSelectedSeats) => [...prevSelectedSeats, seatName]);
+      } else {
+        // Nếu thuộc danh sách, hiển thị thông báo hoặc xử lý theo ý muốn của bạn
+        alert(`Ghế ${seatName} đã được đặt, vui lòng chọn ghế khác.`);
+      
+      }
     } else if (selectedSeats.length >= maxSeatsToSelect) {
       // Hiển thị thông báo lỗi
       setShowError(true);
     }
-
+  
     setSeats(newSeats);
   };
 
@@ -284,6 +380,7 @@ function Booking() {
                             key={seatIndex}
                             className={`seat ${
                               isOccupied ? "occupied" : "available"
+                              
                             }`}
                             onClick={() => handleSeatClick(rowIndex, index)}
                           >

@@ -16,8 +16,8 @@ module.exports = {
             idttchuyenxe: {
                 type: Sequelize.INTEGER
             },
-            mave: {
-                type: Sequelize.INTEGER
+            soghe: {
+                type: Sequelize.STRING
             },
            
             createdAt: {

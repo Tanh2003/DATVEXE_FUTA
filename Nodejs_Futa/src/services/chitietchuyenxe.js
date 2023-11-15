@@ -11,7 +11,7 @@ let getAllchitietchuyenxe = (chitietchuyenxeid) => {
       }
       if (chitietchuyenxeid && chitietchuyenxeid !== "ALL") {
         chitietchuyenxe = await db.chitietchuyenxe.findOne({
-          where: { id: chitietchuyenxeid }, //  userId laf cais tham so truyen vao
+          where: { idttchuyenxe: chitietchuyenxeid }, //  userId laf cais tham so truyen vao
           // ẩn mật khẩu
         });
       }
@@ -27,7 +27,7 @@ let Createchitietchuyenxe = (data) => {
     try {
       await db.chitietchuyenxe.create({
         idttchuyenxe:data.idttchuyenxe,
-        mave:data.ngay,
+        soghe:data.soghe,
       
       });
 
@@ -75,12 +75,11 @@ let updatechitietchuyenxeData = (data) => {
         });
       }
       let chitietchuyenxe = await db.chitietchuyenxe.findOne({
-        where: { id: data.id },
+        where: { idttchuyenxe: data.idttchuyenxe },
         raw: false,
       });
       if (chitietchuyenxe) {
-        chitietchuyenxe.idttchuyenxe=data.idttchuyenxe,
-       chitietchuyenxe.mave=data.mave,
+       chitietchuyenxe.soghe=data.soghe,
 
         await chitietchuyenxe.save();
 

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   chitietchuyenxe.init({
     idttchuyenxe:DataTypes.INTEGER,
-    mave:DataTypes.INTEGER,
+    soghe:DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'chitietchuyenxe',
