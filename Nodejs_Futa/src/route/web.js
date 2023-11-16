@@ -16,6 +16,7 @@ import TTchuyenxeController from "../controllers/ttchuyenxe.Controller";
 import ChitietchuyenxeController from "../controllers/chitietchuyenxeController";
 
  import QuyenhanController from "../controllers/quyenhanController";
+ import emailController from "../controllers/emailController"
 
 let router = express.Router();
 
@@ -143,6 +144,12 @@ router.delete("/api/delete-quyenhan", QuyenhanController.handleDeletequyenhan);
 
 
 
+
+//api gui email
+router.post(
+  "/api/guiemail",
+  emailController.emailcuaController
+);
 
 
 

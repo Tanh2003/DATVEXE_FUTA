@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "react-toastify/dist/ReactToastify.css";
 import "./DatXe.scss";
-
+import { Link, useHistory, Redirect } from "react-router-dom";
 import Footer from "../FooterFuta/Footer";
 import HeaderFutaMain from "../HeaderFuta/HeaderFutaMain";
 import { useParams } from 'react-router-dom';
@@ -14,19 +14,22 @@ import {
   createNewKhachhang,
   createNewChitietchuyenxe,
   getAllChitietchuyenxe,
-  editChitietchuyenxe
+  editChitietchuyenxe,
+  guithongtinveemail
+  
 
 } from "../userService";
 import { getAllThongtintaikhoan } from "../userService";
 import { update } from 'lodash';
+import axios from 'axios';
 
 function Booking() {
   // Số lượng hàng và ghế trong mỗi hàng
   const { id } = useParams(); // Lấy giá trị id từ Route Parameters
   const [chuyenxe,setchuyenxe]=useState("");
 
-  
-
+  const [thongtin, setThongtin] = useState(" ");
+  const history = useHistory();
 
   
 const [layttchitietchuyenxe,setlaychitietchuyenxe]=useState("");
@@ -53,30 +56,77 @@ const [soghedadat, setSoghedadat] = useState([]);
     setState({ ...copyState });
   };
 
+ 
+  let idchuyenxene=id;
+ 
+ 
+  
+  const buttonDatve = async() => {
+   
+    let sdtne='';
+    if(thongtin&&thongtin.sdt===" "){
+      sdtne=thongtin.sdt;
+     
+          }else{
+            sdtne=state.sdt;
+          }
 
-
-
-  const buttonDatve = () => {
-
-    
 
       datvexe({
-        sdt:state.sdt,
+        sdt:sdtne,
         giave:totalPrice,
         soghe: selectedSeats.join(", "),
         machuyen:id,
-        thoigianbatdau:'',
-        thoigianmua: new Date(),
+        thoigianbatdau: new Date(),
+        thoigianmua:chuyenxe.thoigian,
+       
         matk:1
 
        
       });
-      thongtinkhachhang({
-        sdt:state.sdt,
-        email:state.email,
-        hoten:state.hoten
-      })
+      if(thongtin&&thongtin!==null){
+        console.log("đã có tài khoản trong database");
+      }
+      else{
+        
+        thongtinkhachhang({
+          sdt:state.sdt,
+          email:state.email,
+          hoten:state.hoten
+        })
 
+
+
+      }
+      let email='';
+    if(thongtin&&thongtin.email===" "){
+      email=thongtin.email;
+          }else{
+           
+            email=state.email;
+          }
+
+          let hoten='';
+          if(thongtin&&thongtin.hoten===" "){
+            hoten=thongtin.hoten;
+                }else{
+                  hoten=state.hoten;
+                 
+                }
+
+
+
+      guiemail({
+        reciverEmail:email,
+        hoten:hoten,
+        tonggia:totalPrice,
+        soghe: selectedSeats.join(", "),
+        machuyen:id,
+        ngaydat: new Date(),
+        giodi:chuyenxe.thoigian,
+       
+      })
+    
       
     
 
@@ -95,8 +145,21 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
   })
 }
       
-   
+history.replace(`/datvethanhcong/${idchuyenxene}`, {idchuyenxene}); // Sử dụng replace thay vì push
+
+
   };
+
+
+
+
+
+
+
+
+
+
+
 
 
   const datvexe = async (data) => {
@@ -104,20 +167,10 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
       const response = await createNewVexe(data);
       if (response && response.errcode !== 0) {
         alert(response.errMessage);
+        toast.error('Đặt vé thất bại !');
       } else {
-     
-        setState({
-          sdt:'',
-          giave:'',
-          soghe:'',
-          machuyen:'',
-          thoigianbatdau:'',
-          thoigianmua:'',
-          matk:'',
-          
-        });
-        totalPrice=0;
-        selectedSeats=[];
+        toast.success('Đặt vé thành công!');
+       
       
       }
     } catch (e) {
@@ -126,14 +179,34 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
   };
 
 
+
+ const guiemail= async (data) => {
+    try {
+      const response = await guithongtinveemail(data);
+      if (response && response.errCode !== 0) {
+        alert(response.errMessage);
+       
+      } else {
+        toast.success('Thông tin vé đã gửi email cho bạn :3');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
+
+
+  
+
   const thongtinkhachhang = async (data) => {
     try {
       const response = await createNewKhachhang(data);
       if (response && response.errcode !== 0) {
-        toast.error('Đặt vé thất bại !');
+        
         alert(response.errMessage);
       } else {
-        toast.success('Đặt vé thành công!');
+      
         setState({
           sdt:'',
           hoten:'',
@@ -157,7 +230,7 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
      
         alert(response.errMessage);
       } else {
-   
+       
         setState({
 
           idttchuyenxe:'',
@@ -219,12 +292,12 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
 
 
   useEffect(() => {
-
- 
+    
+    getAllTaikhoanReact();
     getAllchuyenxeReact();
     loadSoghedadat();
 
-    getAllTaikhoanReact();
+   
      laychitietchuyenxe();
   }, [id]);
 
@@ -242,7 +315,7 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
   const laychitietchuyenxe = async () => {
    // Kiểm tra xem `id` có tồn tại không
       let response = await getAllChitietchuyenxe(id);
-      console.log("xem chuyen xe",response)
+   
       if (response && response.errcode === 0) {
 
        
@@ -280,7 +353,7 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
     }
   };
 
-  const [thongtin, setThongtin] = useState();
+
 
 
   
@@ -465,7 +538,7 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
         
           <div className=""><p className="title3">Thông tin khách hàng</p>
             <div className="row">
-            {thongtin&&thongtin.hoten !== " " ? (
+            {thongtin&&thongtin.hoten === " " ? (
                <input
                type="text3"
                className="custom-inp"
@@ -490,7 +563,7 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
              
             </div>
             <div className="row">
-            {thongtin&&thongtin.hoten !== " " ? (
+            {thongtin&&thongtin.sdt === " " ? (
                <input
                type="text3"
                className="custom-inp"
@@ -515,7 +588,7 @@ if(layttchitietchuyenxe.idttchuyenxe!==undefined){
              
             </div>
             <div className="row">
-            {thongtin&&thongtin.hoten !== " " ? (
+            {thongtin&&thongtin.hoten === " " ? (
                <input
                type="text3"
                className="custom-inp"

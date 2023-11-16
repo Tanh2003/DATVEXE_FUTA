@@ -6,6 +6,26 @@ import db from "../models/index";
 
 
 
+let checkkhachhangsdt=(sdt)=>{
+    return new Promise(async(resolve,reject)=>{
+        try{
+            let taikhoan =await db.khachhang.findOne({
+               
+                where: {sdt:sdt},
+               
+            });
+            if(taikhoan){
+                resolve(true);
+            }else{
+                resolve(false);
+            }
+
+        }catch(e){
+            reject(e);
+
+        }
+    })
+}
 
 
 
@@ -43,6 +63,14 @@ let CreateNewkhachhang=(data)=>{
     return new Promise(async(resolve,reject)=>{
         try {
             // check sdt is exist??
+
+            let check= await checktaikhoansdt(data.sdt);
+            if(check==true){
+                resolve({
+                    errcode:1,
+                    errMessage:"Số điện thoại đã tồn tại vui lòng nhập số điện thoại khác"
+                })
+            }else{
                 
                 await db.khachhang.create({
                     sdt:data.sdt,
@@ -63,7 +91,7 @@ let CreateNewkhachhang=(data)=>{
                     errcode:0,
                     message:'OK'
                 })
-            
+            }
             
            
             
@@ -99,14 +127,14 @@ let updatekhachhangData=(data)=>{
     return new Promise(async(resolve,reject)=>{
         try {
 
-            if(!data.id){
+            if(!data.sdt){
                 resolve({
                     errcode:2,
                     errMessage:"Missing required parameter"
                 })
             }
             let khachhang = await db.khachhang.findOne({
-                where:{id:data.id},
+                where:{sdt:data.sdt},
                 raw:false
               })
 

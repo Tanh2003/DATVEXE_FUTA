@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     soghe:DataTypes.STRING,
     machuyen:DataTypes.INTEGER,
     thoigianbatdau:DataTypes.DATE,
-    thoigianmua:DataTypes.DATE,
+    thoigianmua:DataTypes.TIME,
     matk:DataTypes.INTEGER,
 
   }, {

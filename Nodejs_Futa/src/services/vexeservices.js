@@ -11,7 +11,7 @@ let getAllvexe = (vexeid) => {
       }
       if (vexeid && vexeid !== "ALL") {
         vexe = await db.vexe.findOne({
-          where: { id: vexeid }, //  userId laf cais tham so truyen vao
+          where: { machuyen: vexeid }, //  userId laf cais tham so truyen vao
           // ẩn mật khẩu
         });
       }

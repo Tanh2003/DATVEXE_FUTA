@@ -29,25 +29,49 @@
 
 }
 
-.text-loginleft{
+// Định nghĩa kiểu cho dropdown và các phần tử con
+.text-loginleft {
     margin-left: 1000px;
-    width: 160px;
+    width: 190px;
     height: 30px;
     background: white;
     border-radius: 20px;
-
-   
     font-size: 13px;
     padding-left: 10px;
     padding-top: 5px;
     font-weight: 550;
-
-
-    
-    img{
-        padding-bottom: 4px;
+  
+    img {
+      padding-bottom: 4px;
     }
-}
+  
+    // Thiết lập dropdown toggle
+    .dropdown-toggle {
+      // Tùy chỉnh kiểu cho toggle button
+     
+      width: 0px;
+      height: 0px;
+      background: white;
+      border-radius: 20px;
+      font-size: 13px;
+      padding-left: 0px;
+      padding-top: 0px;
+      margin-bottom: 15px;
+
+      font-weight: 550;
+    }
+  
+    // Thiết lập kiểu cho dropdown menu
+    .dropdown-menu {
+      // Tùy chỉnh kiểu cho dropdown menu
+   
+      margin-top: 15px;
+  
+
+  
+     
+    }
+  }
 
 
 .main-menu {

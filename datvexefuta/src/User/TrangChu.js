@@ -95,7 +95,7 @@ function TimKiem() {
 
     // Lọc danh sách chuyến xe dựa trên các thông tin đã nhập
     const danhSachChuyenXeDaLoc = danhsachchuyenxe.filter((chuyenDi) => {
-      console.log("xem chuyen di.ngay: ",chuyenDi.idmachuyenData.ngay);
+
 
       const ngayDaDinhDang = moment(chuyenDi.idmachuyenData.ngay).format('MM/DD/YYYY');
       const ngaydi2=moment(ngayDi).format('MM/DD/YYYY');
@@ -103,8 +103,7 @@ function TimKiem() {
       return chuyenDi.diemdi === diemDi && chuyenDi.diemden === diemDen&&ngayDaDinhDang===ngaydi2;
     });
 
-    
-    console.log("chuyenxe da loc neeee", danhSachChuyenXeDaLoc);
+  
 
     // Cập nhật danh sách chuyến xe trong trạng thái chuyenXe
     setChuyenXe(danhSachChuyenXeDaLoc);

@@ -257,7 +257,10 @@ const editNhanvien = (inputData) => {
 
 
 
-
+//api gui thong tin ve email
+const guithongtinveemail = (data) => {
+    return axios.post('/api/guiemail', data)
+}
 
 
 
@@ -313,6 +316,7 @@ export {
     createNewTTchuyenxe,
     deleteTTchuyenxe ,
     editTTchuyenxe,
+    guithongtinveemail
     
 
 

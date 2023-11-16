@@ -128,7 +128,16 @@ class TTChuyenxeManager extends Component {
    * 2.did mouth(set state)
    * 3.render
    */
+   formatDate = (isoDate) => {
+    const dateObject = new Date(isoDate);
+    // const hours = dateObject.getHours();
+    // const minutes = dateObject.getMinutes();
+    const day = dateObject.getDate();
+    const month = dateObject.getMonth() + 1;
+    const year = dateObject.getFullYear();
 
+    return `${day}/${month}/${year}`;
+  };
   render() {
     const { arrTTchuyenxe, currentPage, productsPerPage } = this.state;
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -184,7 +193,7 @@ class TTChuyenxeManager extends Component {
                           currentProducts.map((item, index) => {
                             return (
                               <tr key={index}>
-                                <td>{item.ngay}</td>
+                                <td>{this.formatDate(item.ngay)}</td>
                                 <td>{item.soluongve	} <strong>Km</strong></td>
                                 <td>{item.thoigian}</td>
                                 <td>

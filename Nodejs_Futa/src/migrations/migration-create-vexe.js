@@ -30,7 +30,7 @@ module.exports = {
                 type: Sequelize.DATE
             },
             thoigianmua: {
-                type: Sequelize.DATE
+                type: Sequelize.TIME
             },
             matk: {
                 type: Sequelize.INTEGER
